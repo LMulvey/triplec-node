@@ -1,0 +1,304 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    font-family: 'Proxima Nova', Helvetica, sans-serif;
+    background: url('../img/walnutbg-comp.png') no-repeat center center;
+    background-size: cover;
+    color: #748391;
+    margin-bottom: 75px;
+}
+
+.navbar {
+  padding-top: 25px;
+  margin: 0;
+  border: none;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.tagline {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-left: 1.5em;
+  display: inline;
+}
+
+.navbar-nav {
+  float: right;
+}
+
+.navbar-contact {
+  padding: 1em;
+  background-color: rgba(051, 054, 060, 0.5);
+  border-radius: 10px;
+}
+.navbar-contact i {
+  color: #fff;
+}
+
+.navbar-left,
+.navbar-icon,
+.navbar-address {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.navbar-email,
+.navbar-phone {
+  text-align: left;
+}
+
+.navbar-address {
+  text-align: right;
+  vertical-align: middle;
+  margin-left: 1em;
+  padding-left: 1em;
+  border-left: #595b60 solid 2px;
+}
+
+.navbar-icon {
+  width: 2em;
+  float: left;
+  padding-right: 1em;
+}
+
+.navbar-address .navbar-icon {
+  width: auto;
+}
+
+.navbar {
+  background: none;
+}
+
+section {
+    padding: 25px 0;
+
+}
+.section-heading {
+    margin: 65px 0 0 0;
+    font-size: 3.5em;
+    font-weight: bold;
+    line-height: 0.1em;
+}
+
+.section-lead {
+    margin: 30px 0;
+}
+
+.section-paragraph {
+    margin: 30px 0;
+    line-height: 1.3em;
+    font-size: 1.2em;
+}
+
+
+section .row {
+  background-color: #1d2124;
+  border-radius: 10px;
+}
+
+section .row .carp-logo {
+  margin: 5% 0;
+  text-align: center;
+}
+
+.button-bathrooms,
+.button-kitchens,
+.button-others {
+  text-align: center;
+  font-size: 3em;
+  font-weight: bolder;
+  text-transform: uppercase;
+  color: #fff;
+  height: 350px;
+  padding-top: 3.3em;
+  transition: opacity 0.2s linear,  font-size 0.2s linear, background-image 0.2s linear;
+  -webkit-transition: opacity 0.2s linear,  font-size 0.2s linear, background-image 0.2s linear;
+  -moz-transition: opacity 0.2s linear,  font-size 0.2s linear, background-image 0.2s linear;
+  -o-transition: opacity 0.2s linear,  font-size 0.2s linear, background-image 0.2s linear;
+}
+
+.button-bathrooms:hover,
+.button-kitchens:hover,
+.button-others:hover {
+  opacity: 0.3;
+  color: #f1f1f1;
+  font-size: 3.1em;
+  padding-top: 3.2em;
+}
+
+.button-others:hover {
+  padding-top: 2.6em;
+}
+
+.button-bathrooms  {
+  background-size: cover;
+}
+
+.button-kitchens  {
+  background-size: cover;
+}
+
+.button-others  {
+  background-size: cover;
+  font-size: 3em;
+  padding-top: 2.7em;
+}
+
+.button-long {
+  height: auto;
+  padding: 0;
+  margin-bottom: 0.4em;
+}
+
+.button-long:hover {
+  padding: 0;
+}
+
+.bathrooms-slider,
+.kitchens-slider,
+.others-slider {
+  position: absolute;
+  bottom: 0;
+  background-color: #111416;
+  color: #748391;
+  font-size: 0.5em;
+  padding-top: 3.5em;
+  overflow: hidden;
+  width: 0;
+  height: 100%;
+  transition: .3s ease;
+  left: 100%;
+  right: 0;
+}
+
+.bathrooms-slider span,
+.kitchens-slider span,
+.others-slider span {
+  display: block;
+  text-transform: none;
+  font-size: 0.8em;
+  padding: 0 1.8em;
+}
+
+.bathrooms-slider small,
+.kitchens-slider small,
+.others-slider small {
+  display: block;
+}
+
+.bathrooms-slider h1,
+.kitchens-slider h1,
+.others-slider h1 {
+  line-height: 0.6em;
+  font-weight: bold;
+  color: #fff;
+}
+
+footer .fa:hover {
+  color: white;
+}
+
+
+
+/*.wrap {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -80px;
+  padding: 0 0 105px;
+  /* 60px == whatever the footer height is. Adj. for breakpoints
+}*/
+
+footer {
+  position: absolute;
+  bottom: 0;
+  height : 80px;
+  padding: 1.5em;
+  width: 100%;
+  background-color: #111416;
+
+}
+
+footer i {
+  padding: 0 0.1em;
+}
+
+footer .designer {
+  text-align: right;
+  font-size: 1.1em;
+  font-weight: 400;
+  line-height: 1.3em;
+  float: right;
+}
+
+footer .amlm-wordmark {
+  font-family: flood-std, sans-serif;
+  font-weight: normal;
+  font-size: 1.4em;
+  color: #e71d36;
+}
+
+@media (max-width: 1200px) {
+  footer .fa {
+
+  }
+}
+
+@media(max-width:768px) {
+    body {
+      margin-bottom: 185px;
+    }
+
+    section, .row {
+      padding: 0.3em;
+    }
+
+    section {
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+
+    .section-heading {
+        font-size: 2em;
+    }
+
+    .navbar-nav {
+      float: none;
+    }
+
+    .navbar-contact {
+      margin: 0;
+      padding: 0.5em;
+    }
+
+    section .row {
+      text-align: center;
+    }
+
+    footer {
+      height: 185px;
+      text-align: center;
+    }
+
+    footer .col-sm-3 {
+      margin-top: 1em;
+    }
+
+    footer .designer {
+      float: none;
+      display: block;
+      text-align: center;
+      margin: 1em 0 0 0;
+    }
+}
+
+@media(max-width:635px) {
+  .tagline {
+    display: block;
+    text-align: center;
+    margin: 0.5em;
+  }
+}
