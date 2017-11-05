@@ -8,7 +8,7 @@ body {
     background: url('../img/walnutbg-comp.png') no-repeat center center;
     background-size: cover;
     color: #748391;
-    margin-bottom: 75px;
+    margin-bottom: 100px;
 }
 
 .navbar {
@@ -74,35 +74,30 @@ body {
 }
 
 section {
-    padding: 25px 0;
+  margin: 25px auto;
+}
 
+.intro {
+    padding: 2.5em 0;
+    text-align: center;
+    background-color: #1d2124;
+    border-radius: 10px;
 }
 .section-heading {
-    margin: 65px 0 0 0;
-    font-size: 3.5em;
+    font-size: 3.327em;
     font-weight: bold;
     line-height: 0.1em;
-}
-
-.section-lead {
-    margin: 30px 0;
+    margin-bottom: 0.5em;
+    color: white;
 }
 
 .section-paragraph {
-    margin: 30px 0;
-    line-height: 1.3em;
-    font-size: 1.2em;
+    line-height: 1.4em;
+    font-size: 1.3em;
 }
 
-
-section .row {
-  background-color: #1d2124;
-  border-radius: 10px;
-}
-
-section .row .carp-logo {
-  margin: 5% 0;
-  text-align: center;
+.carp-logo {
+  margin-top: 2em;
 }
 
 .button-bathrooms,
@@ -112,7 +107,8 @@ section .row .carp-logo {
   font-size: 3em;
   font-weight: bolder;
   text-transform: uppercase;
-  color: #fff;
+  text-shadow: 2px 3px 1px #1d2124;
+  color:white;
   height: 350px;
   padding-top: 3.3em;
   transition: opacity 0.2s linear,  font-size 0.2s linear, background-image 0.2s linear;
@@ -124,7 +120,7 @@ section .row .carp-logo {
 .button-bathrooms:hover,
 .button-kitchens:hover,
 .button-others:hover {
-  opacity: 0.3;
+  opacity: 0.6;
   color: #f1f1f1;
   font-size: 3.1em;
   padding-top: 3.2em;
@@ -202,16 +198,6 @@ footer .fa:hover {
   color: white;
 }
 
-
-
-/*.wrap {
-  min-height: 100%;
-  height: auto;
-  margin: 0 auto -80px;
-  padding: 0 0 105px;
-  /* 60px == whatever the footer height is. Adj. for breakpoints
-}*/
-
 footer {
   position: absolute;
   bottom: 0;
@@ -219,7 +205,6 @@ footer {
   padding: 1.5em;
   width: 100%;
   background-color: #111416;
-
 }
 
 footer i {
@@ -239,12 +224,6 @@ footer .amlm-wordmark {
   font-weight: normal;
   font-size: 1.4em;
   color: #e71d36;
-}
-
-@media (max-width: 1200px) {
-  footer .fa {
-
-  }
 }
 
 @media(max-width:768px) {

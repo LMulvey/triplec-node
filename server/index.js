@@ -19,5 +19,5 @@ const galleryRoutes = require('./routes/gallery.js');
 // TO-DO: change route to /gallery once gallery feature is completed.
 
 app.listen(PORT, () => {
-  console.log("TripleC website now live on port " + PORT);
+  console.log(`TripleC website now live on port ${PORT}.`);
 });
