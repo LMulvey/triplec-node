@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/LMulvey/TripleC#readme",
   "dependencies": {
+    "ejs": "^2.5.7",
     "express": "^4.16.2"
   }
 }

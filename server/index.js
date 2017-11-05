@@ -7,6 +7,7 @@ const bodyParser    = require("body-parser");
 const app           = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.use('view engine', 'ejs');
 
 // Routes
 const adminRoutes = require('./routes/admin.js');
