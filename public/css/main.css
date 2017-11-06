@@ -35,6 +35,7 @@ body {
   background-color: rgba(051, 054, 060, 0.5);
   border-radius: 10px;
 }
+
 .navbar-contact i {
   color: #fff;
 }
@@ -100,15 +101,18 @@ section {
   margin-top: 2em;
 }
 
-.button-bathrooms,
-.button-kitchens,
-.button-others {
-  text-align: center;
+.largetext-button {
   font-size: 3em;
   font-weight: bolder;
   text-transform: uppercase;
   text-shadow: 2px 3px 1px #1d2124;
   color:white;
+}
+
+.button-bathrooms,
+.button-kitchens,
+.button-others {
+  text-align: center;
   height: 350px;
   padding-top: 3.3em;
   transition: opacity 0.2s linear,  font-size 0.2s linear, background-image 0.2s linear;
@@ -144,14 +148,14 @@ section {
   padding-top: 2.7em;
 }
 
-.button-long {
-  height: auto;
-  padding: 0;
-  margin-bottom: 0.4em;
+.gallery-button {
+  padding: 1em 0;
+  margin-bottom: 1em;
+  transition: all 0.5s;
 }
 
-.button-long:hover {
-  padding: 0;
+.gallery-button:hover {
+  background-color: #444d53;
 }
 
 .bathrooms-slider,
@@ -254,6 +258,10 @@ footer .amlm-wordmark {
     }
 
     section .row {
+      text-align: center;
+    }
+
+    .other-galleries {
       text-align: center;
     }
 
