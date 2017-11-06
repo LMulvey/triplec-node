@@ -5,6 +5,5 @@ module.exports = function() {
     galleryRoutes.get('/', (req, res) => {
         console.log('route');
     });
-
     return galleryRoutes;
 }
