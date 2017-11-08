@@ -9,13 +9,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Setup basic serving of files and the view engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
-app.use(express.static('public'));
+app.use(express.static('/public'));
 
 // Routes
+const rootRoutes = require('./routes/root');
 const adminRoutes = require('./routes/admin');
 const galleryRoutes = require('./routes/gallery');
 
 //app.use("/admin", adminRoutes);
+app.use('/', rootRoutes);
 app.use('/gallery', galleryRoutes);
 
 app.listen(PORT, () => {

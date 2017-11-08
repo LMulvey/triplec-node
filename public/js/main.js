@@ -38,7 +38,7 @@ var InfiniteRotator =
         };
 
         //img dir
-        var imgUrl = "./img/";
+        var imgUrl = "../img/";
 
         //kitchen images
         var kitchenImages = [
@@ -51,20 +51,17 @@ var InfiniteRotator =
 
         //bathroom images
         var bathroomImages = [
-          "Bathroom/1_thumb.jpg",
-          "Bathroom/2_thumb.jpg",
-          "Bathroom/3_thumb.jpg",
-          "Bathroom/4_thumb.jpg"
+          "bathroom/1_thumb.jpg",
+          "bathroom/2_thumb.jpg",
+          "bathroom/3_thumb.jpg",
+          "bathroom/4_thumb.jpg"
         ];
 
         //bathroom images
         var otherImages = [
-          "Other/1_thumb.jpg",
-          "Other/2_thumb.jpg",
-          "Other/3_thumb.jpg",
-          "Other/4_thumb.jpg",
-          "Other/5_thumb.jpg",
-          "Other/6_thumb.jpg"
+          "other/2_thumb.jpg",
+          "other/4_thumb.jpg",
+          "other/5_thumb.jpg"
         ];
 
         shuffle(kitchenImages);
@@ -98,13 +95,13 @@ var InfiniteRotator =
               cItems['b']++;
             }
 
-            if(cItems['k'] == bathroomLength -1) {
+            if(cItems['k'] == kitchenLength -1) {
               cItems['k'] = 0;
             } else {
               cItems['k']++;
             }
 
-            if(cItems['o'] == bathroomLength -1) {
+            if(cItems['o'] == othersLength -1) {
               cItems['o'] = 0;
             } else {
               cItems['o']++;

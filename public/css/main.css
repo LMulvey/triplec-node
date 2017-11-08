@@ -151,11 +151,12 @@ section {
 .gallery-button {
   padding: 1em 0;
   margin-bottom: 1em;
+  background-color: rgb(45, 50, 55);
   transition: all 0.5s;
 }
 
 .gallery-button:hover {
-  background-color: #444d53;
+  background-color: #1d2124;
 }
 
 .bathrooms-slider,
@@ -252,8 +253,13 @@ footer .amlm-wordmark {
       float: none;
     }
 
+    .navbar-address {
+      border: none;
+    }
+    
     .navbar-contact {
-      margin: 0;
+      margin: 0 auto;
+      display: block;
       padding: 0.5em;
     }
 

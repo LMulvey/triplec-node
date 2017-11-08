@@ -5,4 +5,8 @@ galleryRoutes.get('/', (req, res) => {
     res.render('gallery_main');
 });
 
+galleryRoutes.get('/:id', (req, res) => {
+    res.render(`gallery_${req.params.id}`);
+});
+
 module.exports = galleryRoutes;
