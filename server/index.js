@@ -9,7 +9,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Setup basic serving of files and the view engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
-app.use(express.static('/public'));
+app.set('strict routing', true);
+app.use(express.static('public'));
 
 // Routes
 const rootRoutes = require('./routes/root');

@@ -199,6 +199,19 @@ section {
   color: #fff;
 }
 
+.thumb {
+  transition: 0.5s;
+  margin-bottom: 25px;
+}
+
+.thumb:hover {
+  opacity: 0.6;
+}
+
+.thumbnail {
+  background-color: none;
+}
+
 footer .fa:hover {
   color: white;
 }
