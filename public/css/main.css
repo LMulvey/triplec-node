@@ -107,6 +107,11 @@ section {
   text-transform: uppercase;
   text-shadow: 2px 3px 1px #1d2124;
   color:white;
+  padding: 0.3em;
+  text-align: center;
+  background-color: rgb(45, 50, 55);
+  border-radius: 10px;
+  transition: all 0.5s;
 }
 
 .button-bathrooms,
@@ -155,7 +160,8 @@ section {
   transition: all 0.5s;
 }
 
-.gallery-button:hover {
+.gallery-button:hover,
+.largetext-button:hover {
   background-color: #1d2124;
 }
 
