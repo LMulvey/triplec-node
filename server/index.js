@@ -22,5 +22,5 @@ app.use('/', rootRoutes);
 app.use('/gallery', galleryRoutes);
 
 app.listen(PORT, () => {
-  console.log(`TripleC website now live on port ${PORT}.`);
+  console.log(`Triple C website now live on port ${PORT}.`);
 });
