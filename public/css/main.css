@@ -80,7 +80,6 @@ section {
 
 .intro {
     padding: 2.5em 0;
-    text-align: center;
     background-color: #1d2124;
     border-radius: 10px;
 }
@@ -89,6 +88,7 @@ section {
     font-weight: bold;
     line-height: 0.1em;
     margin-bottom: 0.5em;
+    margin-top: 0.7em;
     color: white;
 }
 
