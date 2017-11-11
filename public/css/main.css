@@ -110,10 +110,10 @@ section {
   padding: 0.3em;
   text-align: center;
   background-color: rgb(45, 50, 55);
-  transition: all 0.5s;
-  -webkit-transition: all 0.5s;
-  -moz-transition: all 0.5s;
-  -o-transition: all 0.5;s
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -o-transition: 0.5;s
 }
 
 .other-galleries-button .largetext-button {
@@ -163,10 +163,10 @@ section {
   padding: 1em 0;
   margin-bottom: 1em;
   background-color: rgb(45, 50, 55);
-  transition: all 0.5s;
-  -webkit-transition: all 0.5s;
-  -moz-transition: all 0.5s;
-  -o-transition: all 0.5;s
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -o-transition: 0.5;s
 }
 
 .gallery-button:hover,
