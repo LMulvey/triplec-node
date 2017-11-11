@@ -126,10 +126,10 @@ section {
   text-align: center;
   height: 350px;
   padding-top: 3.3em;
-  transition: opacity 0.2s linear,  font-size 0.2s linear, background-image 0.2s linear;
-  -webkit-transition: opacity 0.2s linear,  font-size 0.2s linear, background-image 0.2s linear;
-  -moz-transition: opacity 0.2s linear,  font-size 0.2s linear, background-image 0.2s linear;
-  -o-transition: opacity 0.2s linear,  font-size 0.2s linear, background-image 0.2s linear;
+  transition: opacity 0.2s linear,  font-size 0.2s linear, background 0.2s linear;
+  -webkit-transition: opacity 0.2s linear,  font-size 0.2s linear, background 0.2s linear;
+  -moz-transition: opacity 0.2s linear,  font-size 0.2s linear, background 0.2s linear;
+  -o-transition: opacity 0.2s linear,  font-size 0.2s linear, background 0.2s linear;
 }
 
 .button-bathrooms:hover,
