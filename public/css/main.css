@@ -1,183 +1,148 @@
 html {
   position: relative;
-  min-height: 100%;
-}
+  min-height: 100%; }
 
 body {
-    font-family: 'Proxima Nova', Helvetica, sans-serif;
-    background: url('../img/walnutbg-comp.png') no-repeat center center;
-    background-size: cover;
-    color: #748391;
-    margin-bottom: 100px;
-}
+  font-family: 'Proxima Nova', Helvetica, sans-serif;
+  background: url("../img/walnutbg-comp.png") no-repeat center center;
+  background-size: cover;
+  color: #748391;
+  margin-bottom: 100px; }
 
 .navbar {
   padding-top: 25px;
   margin: 0;
   border: none;
   text-align: center;
-  vertical-align: middle;
-}
+  vertical-align: middle; }
 
 .tagline {
   font-size: 1.2em;
   font-weight: bold;
   margin-left: 1.5em;
-  display: inline;
-}
+  display: inline; }
 
 .navbar-nav {
-  float: right;
-}
+  float: right; }
 
 .navbar-contact {
   padding: 1em;
-  background-color: rgba(051, 054, 060, 0.5);
-  border-radius: 10px;
-}
+  background-color: rgba(51, 54, 60, 0.5);
+  border-radius: 10px; }
+  .navbar-contact i {
+    color: #fff; }
 
-.navbar-contact i {
-  color: #fff;
-}
-
-.navbar-left,
-.navbar-icon,
-.navbar-address {
+.navbar-left, .navbar-icon, .navbar-address {
   display: inline-block;
-  vertical-align: middle;
-}
+  vertical-align: middle; }
 
-.navbar-email,
-.navbar-phone {
-  text-align: left;
-}
+.navbar-email, .navbar-phone {
+  text-align: left; }
 
 .navbar-address {
   text-align: right;
   vertical-align: middle;
   margin-left: 1em;
   padding-left: 1em;
-  border-left: #595b60 solid 2px;
-}
+  border-left: #595b60 solid 2px; }
 
 .navbar-icon {
   width: 2em;
   float: left;
-  padding-right: 1em;
-}
+  padding-right: 1em; }
 
 .navbar-address .navbar-icon {
-  width: auto;
-}
+  width: auto; }
 
 .navbar {
-  background: none;
-}
+  background: none; }
 
 section {
-  margin: 25px auto;
-}
+  margin: 25px auto; }
 
 .intro {
-    padding: 2.5em 0;
-    background-color: #1d2124;
-    border-radius: 10px;
-}
+  padding: 2.5em 0;
+  background-color: #1d2124;
+  border-radius: 10px; }
+
 .section-heading {
-    font-size: 3.327em;
-    font-weight: bold;
-    line-height: 0.1em;
-    margin-bottom: 0.5em;
-    margin-top: 0.7em;
-    color: white;
-}
+  font-size: 3.327em;
+  font-weight: bold;
+  line-height: 0.1em;
+  margin-bottom: 0.5em;
+  margin-top: 0.7em;
+  color: white; }
 
 .section-paragraph {
-    line-height: 1.4em;
-    font-size: 1.3em;
-}
+  line-height: 1.4em;
+  font-size: 1.3em; }
 
 .carp-logo {
-  margin-top: 2em;
-}
+  margin-top: 2em; }
 
 .largetext-button {
   font-size: 3em;
   font-weight: bolder;
   text-transform: uppercase;
   text-shadow: 2px 3px 1px #1d2124;
-  color:white;
+  color: white;
   padding: 0.3em;
   text-align: center;
-  background-color: rgb(45, 50, 55);
+  background-color: #2d3237;
   transition: 0.5s;
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   -o-transition: 0.5;
-  margin-bottom: 25px;
-}
+  margin-bottom: 25px; }
 
 .other-galleries-button .largetext-button {
-  border-radius: 10px;
-}
+  border-radius: 10px; }
 
-.button-bathrooms,
-.button-kitchens,
-.button-others {
+.button-bathrooms, .button-kitchens, .button-others {
   text-align: center;
   height: 350px;
   padding-top: 3.3em;
   transition: opacity 0.2s linear,  font-size 0.2s linear, background 0.2s linear;
   -webkit-transition: opacity 0.2s linear,  font-size 0.2s linear, background 0.2s linear;
   -moz-transition: opacity 0.2s linear,  font-size 0.2s linear, background 0.2s linear;
-  -o-transition: opacity 0.2s linear,  font-size 0.2s linear, background 0.2s linear;
-}
+  -o-transition: opacity 0.2s linear,  font-size 0.2s linear, background 0.2s linear; }
 
-.button-bathrooms:hover,
-.button-kitchens:hover,
+.button-bathrooms:hover, .button-kitchens:hover {
+  opacity: 0.6;
+  color: #f1f1f1;
+  font-size: 3.1em;
+  padding-top: 3.2em; }
+
 .button-others:hover {
   opacity: 0.6;
   color: #f1f1f1;
   font-size: 3.1em;
   padding-top: 3.2em;
-}
+  padding-top: 2.6em; }
 
-.button-others:hover {
-  padding-top: 2.6em;
-}
+.button-bathrooms, .button-kitchens {
+  background-size: cover; }
 
-.button-bathrooms  {
-  background-size: cover;
-}
-
-.button-kitchens  {
-  background-size: cover;
-}
-
-.button-others  {
+.button-others {
   background-size: cover;
   font-size: 3em;
-  padding-top: 2.7em;
-}
+  padding-top: 2.7em; }
 
 .gallery-button {
   padding: 1em 0;
   margin-bottom: 1em;
-  background-color: rgb(45, 50, 55);
+  background-color: #2d3237;
   transition: 0.5s;
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
-  -o-transition: 0.5;s
-}
+  -o-transition: 0.5s; }
+  .gallery-button:hover {
+    background-color: #1d2124; }
 
-.gallery-button:hover,
 .largetext-button:hover {
-  background-color: #1d2124;
-}
+  background-color: #1d2124; }
 
-.bathrooms-slider,
-.kitchens-slider,
-.others-slider {
+.bathrooms-slider, .kitchens-slider, .others-slider {
   position: absolute;
   bottom: 0;
   background-color: #111416;
@@ -189,138 +154,87 @@ section {
   height: 100%;
   transition: .3s ease;
   left: 100%;
-  right: 0;
-}
+  right: 0; }
 
-.bathrooms-slider span,
-.kitchens-slider span,
-.others-slider span {
+.bathrooms-slider span, .kitchens-slider span, .others-slider span {
   display: block;
   text-transform: none;
   font-size: 0.8em;
-  padding: 0 1.8em;
-}
+  padding: 0 1.8em; }
 
-.bathrooms-slider small,
-.kitchens-slider small,
-.others-slider small {
-  display: block;
-}
+.bathrooms-slider small, .kitchens-slider small, .others-slider small {
+  display: block; }
 
-.bathrooms-slider h1,
-.kitchens-slider h1,
-.others-slider h1 {
+.bathrooms-slider h1, .kitchens-slider h1, .others-slider h1 {
   line-height: 0.6em;
   font-weight: bold;
-  color: #fff;
-}
+  color: #fff; }
 
 .thumb {
   transition: 0.5s;
-  margin-bottom: 25px;
-}
-
-.thumb:hover {
-  opacity: 0.6;
-}
+  margin-bottom: 25px; }
+  .thumb:hover {
+    opacity: 0.6; }
 
 .thumbnail {
-  background-color: none;
-}
-
-footer .fa:hover {
-  color: white;
-}
+  background-color: none; }
 
 footer {
   position: absolute;
   bottom: 0;
-  height : 80px;
+  height: 80px;
   padding: 1.5em;
   width: 100%;
-  background-color: #111416;
-}
+  background-color: #111416; }
+  footer .fa:hover {
+    color: white; }
+  footer i {
+    padding: 0 0.1em; }
+  footer .designer {
+    text-align: right;
+    font-size: 1.1em;
+    font-weight: 400;
+    line-height: 1.3em;
+    float: right; }
+  footer .amlm-wordmark {
+    font-family: flood-std, sans-serif;
+    font-weight: normal;
+    font-size: 1.4em;
+    color: #e71d36; }
 
-footer i {
-  padding: 0 0.1em;
-}
-
-footer .designer {
-  text-align: right;
-  font-size: 1.1em;
-  font-weight: 400;
-  line-height: 1.3em;
-  float: right;
-}
-
-footer .amlm-wordmark {
-  font-family: flood-std, sans-serif;
-  font-weight: normal;
-  font-size: 1.4em;
-  color: #e71d36;
-}
-
-@media(max-width:768px) {
-    body {
-      margin-bottom: 185px;
-    }
-
-    section, .row {
-      padding: 0.3em;
-    }
-
-    section {
-        padding-top: 25px;
-        padding-bottom: 25px;
-    }
-
-    .section-heading {
-        font-size: 2em;
-    }
-
-    .navbar-nav {
-      float: none;
-    }
-
-    .navbar-address {
-      border: none;
-    }
-    
-    .navbar-contact {
-      margin: 0 auto;
-      display: block;
-      padding: 0.5em;
-    }
-
-    section .row {
-      text-align: center;
-    }
-
-    .other-galleries {
-      text-align: center;
-    }
-
-    footer {
-      height: 185px;
-      text-align: center;
-    }
-
+@media (max-width: 768px) {
+  body {
+    margin-bottom: 185px; }
+  section, .row {
+    padding: 0.3em; }
+  section {
+    padding-top: 25px;
+    padding-bottom: 25px; }
+  .section-heading {
+    font-size: 2em; }
+  .navbar-nav {
+    float: none; }
+  .navbar-address {
+    border: none; }
+  .navbar-contact {
+    margin: 0 auto;
+    display: block;
+    padding: 0.5em; }
+  section .row, .other-galleries {
+    text-align: center; }
+  footer {
+    height: 185px;
+    text-align: center; }
     footer .col-sm-3 {
-      margin-top: 1em;
-    }
-
+      margin-top: 1em; }
     footer .designer {
       float: none;
       display: block;
       text-align: center;
-      margin: 1em 0 0 0;
-    }
-}
+      margin: 1em 0 0 0; } }
 
-@media(max-width:635px) {
+@media (max-width: 635px) {
   .tagline {
     display: block;
     text-align: center;
-    margin: 0.5em;
-  }
-}
+    margin: 0.5em; } }
