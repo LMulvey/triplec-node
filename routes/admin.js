@@ -1,26 +1,39 @@
-module.exports = function(app, passport) {
+let express = require('express');
+let adminRoutes = express.Router();
 
-    app.get('/', isLoggedIn, (req, res) => {
+module.exports = function(passport) {
+
+    adminRoutes.get('/', isLoggedIn, (req, res) => {
         res.render('admin_dashboard', { user: req.user });
     });
 
-    app.get('/createadmin', (req, res) => {
+    adminRoutes.get('/createadmin', (req, res) => {
         // render the page and pass in any flash data if it exists
         res.render('admin_create', { message: req.flash('createMessage') });
     });
 
-    // app.post('/createadmin', (req, res) => {}); // post-admin creation stuff
+    adminRoutes.post('/createadmin', passport.authenticate('local-createadmin', {
+        successRedirect : '/admin', // redirect to the secure profile section
+        failureRedirect : '/admin/createadmin', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+    }));
 
-    app.get('/login', (req, res) => {
+    adminRoutes.get('/login', (req, res) => {
         res.render('admin_login', {message: req.flash('loginMessage')});
     });
 
-    // app.post('/login', (req, res) => {}); // post-login stuff
+    adminRoutes.post('/login', passport.authenticate('local-login', {
+        successRedirect : '/admin',
+        failureRedirect : '/admin/login', 
+        failureFlash : true
+    }));
 
-    app.get('/logout', (req, res) => {
+    adminRoutes.get('/logout', (req, res) => {
         req.logout();
-        res.redirect('/');
+        res.redirect('/admin');
     });
+
+    return adminRoutes;
 };
 
 // route middleware to make sure a user is logged in
@@ -30,5 +43,5 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) return next();
 
     // if they aren't redirect them to the home page
-    res.redirect('/login');
+    res.redirect('/admin/login');
 }

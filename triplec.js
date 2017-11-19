@@ -13,7 +13,7 @@ const session       = require('express-session');
 const path          = require('path');
 
 const configDB      = require('./config/database');
-// require(./config/passport)(passport); //configure the Passport
+require('./config/passport')(passport); //configure the Passport
 
 mongoose.connect(configDB.url); // Connect to the database
 
@@ -29,17 +29,17 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
 // required for passport
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(session({ secret: 'bibbitybobbitytriplecdittyboo' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // Routes
 const rootRoutes = require('./routes/root');
-const adminRoutes = require('./routes/admin')(app, passport);
+const adminRoutes = require('./routes/admin')(passport);
 const galleryRoutes = require('./routes/gallery');
 
-//app.use("/admin", adminRoutes);
+app.use('/admin', adminRoutes);
 app.use('/', rootRoutes);
 app.use('/gallery', galleryRoutes);
 

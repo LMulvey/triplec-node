@@ -1,5 +1,5 @@
 // Mongoose configuration
 
 module.exports = {
-    url: 'mongodb://localhost/triplec';
-}
+    url: 'mongodb://localhost/triplec'
+};
