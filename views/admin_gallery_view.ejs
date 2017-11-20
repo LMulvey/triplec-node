@@ -1,0 +1,48 @@
+<% include partials/_header %>
+<div class="container">
+        
+    <div class="col-sm-10 col-sm-offset-1">
+    
+        <h1><span class="fa fa-file-photo-o"></span> Edit <%=gallery.name%> Gallery</h1>
+
+        <!-- FLASH MESSAGES -->
+        <% if (message.length > 0) { %>
+            <div class="alert alert-warning"><%= message %></div>
+        <% } %>
+        
+        <form action="edit" method="post" >
+                <div class="col-md-2 form-group">
+                  <label for="name">Gallery Name</label>
+                  <input id="name" type="text" class="form-control" value="<%=gallery.name%>" name="name" required />
+                </div>
+                <div class="col-md-5 form-group">
+                  <label for="desc">Gallery Description</label>
+                  <input id="desc" type="text" class="form-control" value="<%=gallery.description%>" name="description" required />
+                </div>
+                <div class="col-md-2 form-group">
+                  <label for="url">Gallery URL</label>
+                  <input id="url" type="text" class="form-control" value="<%=gallery.url%>" name="url" readonly />
+                </div>
+                <div class="col-md-3 form-group align-center">
+                        <label for="submit">&nbsp;</label>
+                        <button type="submit" class="btn btn-warning form-control">Edit! 📝 </button>
+                </div>
+              </form>
+    </div>
+</div>
+
+<script>
+    const nameField = document.querySelector('input[name=name]');
+    const descField = document.querySelector('input[name=description]');
+    const urlField = document.querySelector('input[name=url]');
+
+    function urlTypeAlong() {
+        let newValue = nameField.value.toLowerCase().replace(/ /g, "_");
+        urlField.value = newValue;
+    }
+
+    nameField.addEventListener('keydown', urlTypeAlong);
+    nameField.addEventListener('keyup', urlTypeAlong);
+
+</script>
+<% include partials/_footer %>

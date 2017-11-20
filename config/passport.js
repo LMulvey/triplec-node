@@ -39,6 +39,7 @@ module.exports = function(passport) {
 
                 // set the Admin's local credentials
                 newAdmin.local.email    = email;
+                newAdmin.local.firstName = req.body.firstName;
                 newAdmin.local.password = newAdmin.generateHash(password);
 
                 // save the Admin
@@ -73,11 +74,11 @@ module.exports = function(passport) {
 
             // if no user is found, return the message
             if (!user)
-                return done(null, false, req.flash('loginMessage', 'Incorrect credentials.')); // req.flash is the way to set flashdata using connect-flash
+                return done(null, false, req.flash('loginMessage', 'Incorrect credentials.')); 
 
             // if the user is found but the password is wrong
             if (!user.validPassword(password))
-                return done(null, false, req.flash('loginMessage', 'Incorrect credentials.')); // create the loginMessage and save it to session as flashdata
+                return done(null, false, req.flash('loginMessage', 'Incorrect credentials.')); 
 
             // all is well, return successful user
             return done(null, user);

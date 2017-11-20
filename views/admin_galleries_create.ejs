@@ -1,0 +1,52 @@
+<% include partials/_header %>
+<div class="container">
+        
+    <div class="col-sm-6 col-sm-offset-3">
+    
+        <h1><span class="fa fa-plus-square"></span> Create a Gallery</h1>
+
+        <!-- FLASH MESSAGES -->
+        <% if (message.length > 0) { %>
+            <div class="alert alert-warning"><%= message %></div>
+        <% } %>
+
+        <form action="create" method="post">
+            <div class="form-group">
+                <label>Gallery Name</label>
+                <input type="text" class="form-control" name="name" required>
+            </div>
+            <div class="form-group">
+                <label>Gallery Description</label>
+                <input type="text" class="form-control" name="description" required>
+            </div>
+            <div class="form-group">
+                <label>Gallery URL</label>
+                <input type="text" class="form-control" name="url" readonly>
+            </div>
+    
+            <button type="submit" class="btn btn-warning btn-lg">Create! 👍🏻</button>
+        </form>        
+    </div>
+</div>
+
+<script>
+    const nameField = document.querySelector('input[name=name]');
+    const descField = document.querySelector('input[name=description]');
+    const urlField = document.querySelector('input[name=url]');
+
+    function urlTypeAlong() {
+        let newValue = nameField.value.toLowerCase().replace(/ /g, "_");
+        urlField.value = newValue;
+    }
+
+    function autoDescription() {
+        let newValue = `${nameField.value} crafted from scratch by Marc.`;
+        descField.value = newValue;
+    }
+
+    nameField.addEventListener('keydown', urlTypeAlong);
+    nameField.addEventListener('keyup', urlTypeAlong);
+    nameField.addEventListener('change', autoDescription);
+
+</script>
+<% include partials/_footer %>

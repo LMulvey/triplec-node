@@ -3,18 +3,26 @@
         
         <div class="col-sm-6 col-sm-offset-3">
         
-            <h1><span class="fa fa-hand-peace-o"></span> Welcome!</h1>
+            <h1><span class="fa fa-hand-peace-o"></span> Welcome, <%= user.local.firstName %>!</h1>
             <p>Click on a gallery below to see the photos, edit them, 
                 or click the <strong>upload</strong> button to add photos.
                 </p>
             <hr>
-            <a href="./upload">Upload Images</a><br />
-            <strong><a href="./galleries/kitchens">Kitchens Gallery</a></strong><br />
-            <strong><a href="./galleries/bathrooms">Bathrooms Gallery</a></strong><br />
-            <strong><a href="./galleries/others">Others Gallery</a></strong><br />
+            <a href="/admin/upload">Upload Images</a> | 
+            <a href="/admin/galleries/create">Create Gallery</a>
+            <br /><br />
+            
+            <% if(galleries.length === 0) { %>
+                <strong>No active galleries.</strong>
+            <% } %>
+            
+            <% galleries.forEach((gallery) => { %>
+                <strong><a href="/admin/galleries/<%=gallery.info.url%>"><%=gallery.info.name%></a></strong>
+                 - <em><%=gallery.info.description%></em><br/>
+            <% }) %>
     
             <hr>
-            <a href="./admin/logout"<i class="fa fa-logout" />Logout</a>
+            <a href="/admin/logout"<i class="fa fa-logout" />Logout</a>
         
         </div>
         

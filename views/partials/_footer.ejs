@@ -16,7 +16,6 @@
             <!-- /.container -->
         </footer>
     
-      <!--build:js js/main.min.js -->
         <!-- jQuery -->
         <script src="/js/jquery.js"></script>
         <!-- Choclat.js -- jquery gallery plugin -->
@@ -30,9 +29,11 @@
         </script>
         <!-- Bootstrap Core JavaScript -->
         <script src="/js/bootstrap.min.js"></script>
-        <!-- setup for rotating image -->
-        <script src="/js/main.js"></script>
-      <!-- endbuild -->
+
+        <% if(config.isHome) { %>
+          <!-- setup for rotating image -->
+          <script src="/js/rotatingImages.js"></script>
+        <% } %>
     </body>
     
     </html>

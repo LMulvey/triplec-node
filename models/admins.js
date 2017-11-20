@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const adminSchema = mongoose.Schema({
     local : {    
         email       :   String,
+        firstName   :   String,
         password    :   String
     }
 });
