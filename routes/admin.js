@@ -1,8 +1,12 @@
-const express = require('express');
+const express   = require('express');
 const adminRoutes = express.Router();
-const config = require('../config/app');
-const Gallery = require('../models/galleries');
 
+const config    = require('../config/app');
+const Gallery   = require('../models/galleries');
+const multerHandler    = require('multer');
+const multer    = multerHandler({dest: `./public/img/gallery`});
+const imageProcessor   = require('../lib/processImage');
+const uploader = new imageProcessor();
 
 module.exports = function(passport) {
 
@@ -19,9 +23,35 @@ module.exports = function(passport) {
         });
     });
 
+    adminRoutes.get('/photos/upload', isLoggedIn, (req, res) => {
+        res.render('admin_photo_upload', {
+            user: req.user,
+            config: config.defaultTemplateVars,
+            message: req.flash('info'),
+            newImage: null
+        });
+    });
+
+    adminRoutes.post('/photos/upload', multer.single('image'), (req, res) => {
+        uploader.process('name', req.file.path, function(err, images){
+            if(err) {
+                req.flash('info', 'Error uploading image.');
+                res.redirect('/admin/photos/upload');
+            } else {
+                console.log(images);
+                res.render('admin_photo_upload', {
+                    message: req.flash('info', 'Image successfully uploaded.'),
+                    config: config.defaultTemplateVars,
+                    newImage: images
+                });
+            }
+          });
+    });
+
     adminRoutes.get('/galleries/:url', isLoggedIn, (req, res) => {
         Gallery.findOne({ 'info.url' : req.params.url }, (err, results) => {
             if(err) throw err;
+           
             res.render('admin_gallery_view', {
                user: req.user,
                message: req.flash('info'),

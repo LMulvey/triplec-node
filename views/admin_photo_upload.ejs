@@ -1,0 +1,22 @@
+<% include partials/_header %>
+<div class="container">
+    <div class="col-sm-8 col-offset-2">
+        <h1>Upload an Image 🖼️</h1>
+
+        <!-- FLASH MESSAGES -->
+        <% if (message.length > 0) { %>
+            <div class="alert alert-warning"><%= message %></div>
+        <% } %>
+        
+        <form action="upload" enctype="multipart/form-data" method="post">
+            <div class="form-group">
+                <input class="form-control" name="image" type="file">
+                <input class="form-control" type="submit" value="Upload">
+            </div>
+        </form>
+        
+        <img src="<%= newImage %>">
+    </div>
+</div>
+
+<% include partials/_footer %>

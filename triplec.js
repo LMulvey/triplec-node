@@ -26,13 +26,13 @@ app.set('view engine', 'ejs');
 //app.set('views', path.join(__dirname, '/views'));
 
 //app.set('strict routing', true);
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(`${__dirname}/public/`));
 
 // required for passport
-app.use(session({ secret: 'bibbitybobbitytriplecdittyboo' })); // session secret
+app.use(session({ secret: 'bibbitybobbitytriplecdittyboo' })); // TODO: dotenv this
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
+app.use(passport.session()); 
+app.use(flash());
 
 // Routes
 const rootRoutes = require('./routes/root');
