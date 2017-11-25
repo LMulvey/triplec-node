@@ -8,15 +8,54 @@
             <div class="alert alert-warning"><%= message %></div>
         <% } %>
         
-        <form action="upload" enctype="multipart/form-data" method="post">
+        <form action="upload" enctype="multipart/form-data" class="dropzone" id="dropper" 
+        method="post">
             <div class="form-group">
-                <input class="form-control" name="image" type="file">
-                <input class="form-control" type="submit" value="Upload">
+                <input class="form-control" type="file" name="images" multiple>
+                <input class="form-control" type="submit" value="Submit">
             </div>
         </form>
-        
-        <img src="<%= newImage %>">
     </div>
 </div>
+<script src="/js/dropzone.js"></script>
+<script>
+  Dropzone.options.dropper = {
+        url: 'upload',
+        maxFilesize: 10, // MB
+        maxFiles: 10,
+        autoProcessQueue: true,
+        uploadMultiple: true,
+        paramName: function() { return 'images' },
+        method: 'post',
+        parallelUploads: 10,
+        // init: function() {
+        //         // 'scope' is all files
+        //         this.on("addedfile", function (file) {
+        //             var unique_field_id = new Date().getTime();
 
+        //             title = file.title == undefined ? "" : file.title;
+        //             file._titleLabel = Dropzone.createElement("<p>Title:</p>")
+        //             file._titleBox = Dropzone.createElement("<input id='"+file.name+unique_field_id+"_title' type='text' name='title' value="+title+" >");
+        //             file.previewElement.appendChild(file._titleLabel);
+        //             file.previewElement.appendChild(file._titleBox);
+
+        //             description = file.description == undefined ? "" : file.description;
+        //             file._descriptionLabel = Dropzone.createElement("<p>Description:</p>")
+        //             file._descriptionBox = Dropzone.createElement("<input id='"+file.name+unique_field_id+"_desc' type='text' name='description' value="+description+" >");
+        //             file.previewElement.appendChild(file._descriptionLabel);
+        //             file.previewElement.appendChild(file._descriptionBox);
+        //         });
+
+        //         this.on("sending", function (file, xhr, formData) {
+        //             title = file.previewElement.querySelector("input[name='title'");
+        //             description = file.previewElement.querySelector("input[name='description'");
+
+        //             formData.append("images[title]", document.querySelector(title).val());
+        //             formData.append("images[description]", document.querySelector(description).val());
+        //         });
+        // }
+    };
+
+
+</script>
 <% include partials/_footer %>

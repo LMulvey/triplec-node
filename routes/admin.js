@@ -23,7 +23,7 @@ module.exports = function(passport) {
         });
     });
 
-    adminRoutes.get('/photos/upload', isLoggedIn, (req, res) => {
+    adminRoutes.get('/photos/upload', (req, res) => {
         res.render('admin_photo_upload', {
             user: req.user,
             config: config.defaultTemplateVars,
@@ -32,20 +32,20 @@ module.exports = function(passport) {
         });
     });
 
-    adminRoutes.post('/photos/upload', multer.single('image'), (req, res) => {
-        uploader.process('name', req.file.path, function(err, images){
+    adminRoutes.post('/photos/upload', multer.array('images'), (req, res) => {
+        processImageStack(req.files, (err, images) => {
             if(err) {
-                req.flash('info', 'Error uploading image.');
+                req.flash('info', 'Error uploading images.');
                 res.redirect('/admin/photos/upload');
             } else {
-                console.log(images);
+                req.flash('info', 'Image successfully uploaded.');
                 res.render('admin_photo_upload', {
-                    message: req.flash('info', 'Image successfully uploaded.'),
+                    message: req.flash('info'),
                     config: config.defaultTemplateVars,
                     newImage: images
                 });
             }
-          });
+        });
     });
 
     adminRoutes.get('/galleries/:url', isLoggedIn, (req, res) => {
@@ -136,3 +136,17 @@ function isLoggedIn(req, res, next) {
     req.session.returnTo = `/admin${req.url}`; // Return from where they came!
     res.redirect('/admin/login');
 }
+
+function processImageStack(files, cb) {
+    let images = [];
+    console.log('inside process image function?', files);
+    files.forEach((file, i) => {
+        uploader.process(`img${i}`, file.path, function(err, image){
+            console.log(`processing image ${i}`);
+            if(err) cb(err);
+            else images.push(image);
+        });
+    });
+    cb(null, images);
+}
+   
