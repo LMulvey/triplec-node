@@ -1,61 +1,70 @@
 <% include partials/_header %>
+
+
 <div class="container">
-    <div class="col-sm-8 col-offset-2">
+    <div class="col-sm-8 col-sm-offset-2">
         <h1>Upload an Image 🖼️</h1>
 
         <!-- FLASH MESSAGES -->
         <% if (message.length > 0) { %>
             <div class="alert alert-warning"><%= message %></div>
         <% } %>
-        
-        <form action="upload" enctype="multipart/form-data" class="dropzone" id="dropper" 
-        method="post">
-            <div class="form-group">
-                <input class="form-control" type="file" name="images" multiple>
-                <input class="form-control" type="submit" value="Submit">
-            </div>
-        </form>
+        <div class="form-group">
+            <form action="upload" 
+            enctype="multipart/form-data" class="dropzone" id="dropper" method="post">
+            
+            <input class="form-control" type="file" name="images" multiple />
+            </form>
+        </div>
+        <button id="submitAll" class="invisible form-control btn btn-success" type="submit">
+            Submit!
+        </button>
     </div>
 </div>
+
 <script src="/js/dropzone.js"></script>
 <script>
   Dropzone.options.dropper = {
         url: 'upload',
         maxFilesize: 10, // MB
         maxFiles: 10,
-        autoProcessQueue: true,
+        autoProcessQueue: false,
         uploadMultiple: true,
         paramName: function() { return 'images' },
         method: 'post',
         parallelUploads: 10,
-        // init: function() {
-        //         // 'scope' is all files
-        //         this.on("addedfile", function (file) {
-        //             var unique_field_id = new Date().getTime();
+        init: function() {
+                let submitButton = document.querySelector("#submitAll")
 
-        //             title = file.title == undefined ? "" : file.title;
-        //             file._titleLabel = Dropzone.createElement("<p>Title:</p>")
-        //             file._titleBox = Dropzone.createElement("<input id='"+file.name+unique_field_id+"_title' type='text' name='title' value="+title+" >");
-        //             file.previewElement.appendChild(file._titleLabel);
-        //             file.previewElement.appendChild(file._titleBox);
+                submitButton.addEventListener("click", () => {
+                    this.processQueue(); // Tell Dropzone to process all queued files.
+                });
 
-        //             description = file.description == undefined ? "" : file.description;
-        //             file._descriptionLabel = Dropzone.createElement("<p>Description:</p>")
-        //             file._descriptionBox = Dropzone.createElement("<input id='"+file.name+unique_field_id+"_desc' type='text' name='description' value="+description+" >");
-        //             file.previewElement.appendChild(file._descriptionLabel);
-        //             file.previewElement.appendChild(file._descriptionBox);
-        //         });
+                // 'scope' is all files
+                this.on("addedfile", function (file) {
+                    var unique_field_id = new Date().getTime();
+                    submitButton.style.visibility = 'visible';
+                    title = file.title == undefined ? "" : file.title;
+                    file._titleLabel = Dropzone.createElement("<p>Title:</p>")
+                    file._titleBox = Dropzone.createElement("<input id='"+file.name+unique_field_id+"_title' type='text' name='title' value="+title+" >");
+                    file.previewElement.appendChild(file._titleLabel);
+                    file.previewElement.appendChild(file._titleBox);
 
-        //         this.on("sending", function (file, xhr, formData) {
-        //             title = file.previewElement.querySelector("input[name='title'");
-        //             description = file.previewElement.querySelector("input[name='description'");
+                    description = file.description == undefined ? "" : file.description;
+                    file._descriptionLabel = Dropzone.createElement("<p>Description:</p>")
+                    file._descriptionBox = Dropzone.createElement("<input id='"+file.name+unique_field_id+"_desc' type='text' name='description' value="+description+" >");
+                    file.previewElement.appendChild(file._descriptionLabel);
+                    file.previewElement.appendChild(file._descriptionBox);
+                });
 
-        //             formData.append("images[title]", document.querySelector(title).val());
-        //             formData.append("images[description]", document.querySelector(description).val());
-        //         });
-        // }
+                this.on("sending", function (file, xhr, formData) {
+                    title = file.previewElement.querySelector("input[name='title'");
+                    description = file.previewElement.querySelector("input[name='description'");
+
+                    formData.append("image-title", title.value);
+                    formData.append("image-desc", description.value);
+                });
+        }
     };
-
-
 </script>
 <% include partials/_footer %>

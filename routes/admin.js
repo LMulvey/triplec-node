@@ -4,8 +4,10 @@ const adminRoutes = express.Router();
 const config    = require('../config/app');
 const Gallery   = require('../models/galleries');
 const multerHandler    = require('multer');
-const multer    = multerHandler({dest: `./public/img/gallery`});
+const multer    = multerHandler({dest: `./public/img/gallery/tmp`}).array('images');
+
 const imageProcessor   = require('../lib/processImage');
+const cleaner   = require('../lib/clearTmpFiles');
 const uploader = new imageProcessor();
 
 module.exports = function(passport) {
@@ -32,7 +34,7 @@ module.exports = function(passport) {
         });
     });
 
-    adminRoutes.post('/photos/upload', multer.array('images'), (req, res) => {
+    adminRoutes.post('/photos/upload', multer, (req, res) => {
         processImageStack(req.files, (err, images) => {
             if(err) {
                 req.flash('info', 'Error uploading images.');
@@ -46,6 +48,7 @@ module.exports = function(passport) {
                 });
             }
         });
+        //cleaner.removeTmpFiles('./public/img/gallery/tmp');
     });
 
     adminRoutes.get('/galleries/:url', isLoggedIn, (req, res) => {

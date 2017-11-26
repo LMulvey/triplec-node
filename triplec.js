@@ -29,7 +29,12 @@ app.set('view engine', 'ejs');
 app.use(express.static(`${__dirname}/public/`));
 
 // required for passport
-app.use(session({ secret: 'bibbitybobbitytriplecdittyboo' })); // TODO: dotenv this
+app.use(session({
+    secret: 'bibbitybobbityboobity',
+    name: 'triplec-ccc-woodworx',
+    resave: true,
+    saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session()); 
 app.use(flash());
