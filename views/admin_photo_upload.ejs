@@ -24,6 +24,15 @@
 
 <script src="/js/dropzone.js"></script>
 <script>
+    let galleries = <%- JSON.stringify( galleries ); %>
+    function createDropdown(name) {
+        let html = `<select name="galleryDropdown" class="form-control" id="${name}">`;
+            galleries.forEach(gallery => {
+            html += `<option value="${gallery._id}">${gallery.info.name}</option>`;
+        });
+        return `${html}</select>`;
+    }
+    
   Dropzone.options.dropper = {
         url: 'upload',
         maxFilesize: 10, // MB
@@ -44,25 +53,35 @@
                 this.on("addedfile", function (file) {
                     var unique_field_id = new Date().getTime();
                     submitButton.style.visibility = 'visible';
+
                     title = file.title == undefined ? "" : file.title;
-                    file._titleLabel = Dropzone.createElement("<p>Title:</p>")
-                    file._titleBox = Dropzone.createElement("<input id='"+file.name+unique_field_id+"_title' type='text' name='title' value="+title+" >");
+                    file._titleLabel = Dropzone.createElement("<label for='title'>Title</label>");
+                    file._titleBox = Dropzone.createElement(`<input id='${file.name + unique_field_id}_title' class="form-control" type='text' name='title' value="${title}">`);
                     file.previewElement.appendChild(file._titleLabel);
                     file.previewElement.appendChild(file._titleBox);
 
                     description = file.description == undefined ? "" : file.description;
-                    file._descriptionLabel = Dropzone.createElement("<p>Description:</p>")
-                    file._descriptionBox = Dropzone.createElement("<input id='"+file.name+unique_field_id+"_desc' type='text' name='description' value="+description+" >");
+                    file._descriptionId = `${file.name + unique_field_id}_desc`;
+                    file._descriptionLabel = Dropzone.createElement(`<label for="description">Description</label>`);
+                    file._descriptionBox = Dropzone.createElement(`<input id='${file._descriptionId}' class='form-control' type='text' name='description' value='${description}'>`);
                     file.previewElement.appendChild(file._descriptionLabel);
                     file.previewElement.appendChild(file._descriptionBox);
-                });
+                    
+                    dropdownLabel = Dropzone.createElement(`<label for="${name}">Gallery</label>`);
+                    dropdown = Dropzone.createElement(createDropdown(`${file.name}${unique_field_id}_gallery`));
+                    file.previewElement.appendChild(dropdownLabel);
+                    file.previewElement.appendChild(dropdown);
+                    
+               });
 
                 this.on("sending", function (file, xhr, formData) {
-                    title = file.previewElement.querySelector("input[name='title'");
-                    description = file.previewElement.querySelector("input[name='description'");
+                    title = file.previewElement.querySelector("input[name='title']");
+                    description = file.previewElement.querySelector("input[name='description']");
+                    dropdown = file.previewElement.querySelector("select[name='galleryDropdown']");
 
-                    formData.append("image-title", title.value);
-                    formData.append("image-desc", description.value);
+                    formData.append("imageTitle", title.value);
+                    formData.append("imageDesc", description.value);
+                    formData.append("imageGallery", dropdown.value);
                 });
         }
     };

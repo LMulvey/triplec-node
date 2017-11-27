@@ -15,7 +15,7 @@ const path          = require('path');
 const configDB      = require('./config/database');
 require('./config/passport')(passport); //configure the Passport
 
-mongoose.connect(configDB.url); // Connect to the database
+mongoose.connect(configDB.url, {useMongoClient: true}); // Connect to the database
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));

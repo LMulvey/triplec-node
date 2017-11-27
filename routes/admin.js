@@ -1,14 +1,17 @@
 const express   = require('express');
 const adminRoutes = express.Router();
-
 const config    = require('../config/app');
+
 const Gallery   = require('../models/galleries');
+const Photo     = require('../models/photos');
+
 const multerHandler    = require('multer');
 const multer    = multerHandler({dest: `./public/img/gallery/tmp`}).array('images');
 
 const imageProcessor   = require('../lib/processImage');
-const cleaner   = require('../lib/clearTmpFiles');
 const uploader = new imageProcessor();
+
+//const cleaner   = require('../lib/clearTmpFiles');
 
 module.exports = function(passport) {
 
@@ -26,29 +29,30 @@ module.exports = function(passport) {
     });
 
     adminRoutes.get('/photos/upload', (req, res) => {
-        res.render('admin_photo_upload', {
-            user: req.user,
-            config: config.defaultTemplateVars,
-            message: req.flash('info'),
-            newImage: null
+        Gallery.find({}, (err, results) => {
+            if(err) throw err;
+
+            res.render('admin_photo_upload', {
+                user: req.user,
+                config: config.defaultTemplateVars,
+                galleries: results,
+                message: req.flash('info'),
+            });
+
         });
+        //cleaner.removeTmpFiles('./public/img/gallery/tmp');
     });
 
     adminRoutes.post('/photos/upload', multer, (req, res) => {
-        processImageStack(req.files, (err, images) => {
+        processImageStack(req.files, req.body, (err, images) => {
             if(err) {
                 req.flash('info', 'Error uploading images.');
                 res.redirect('/admin/photos/upload');
             } else {
                 req.flash('info', 'Image successfully uploaded.');
-                res.render('admin_photo_upload', {
-                    message: req.flash('info'),
-                    config: config.defaultTemplateVars,
-                    newImage: images
-                });
+                res.redirect('/admin/photos/upload');
             }
         });
-        //cleaner.removeTmpFiles('./public/img/gallery/tmp');
     });
 
     adminRoutes.get('/galleries/:url', isLoggedIn, (req, res) => {
@@ -140,16 +144,33 @@ function isLoggedIn(req, res, next) {
     res.redirect('/admin/login');
 }
 
-function processImageStack(files, cb) {
+function processImageStack(files, form, cb) {
     let images = [];
-    console.log('inside process image function?', files);
     files.forEach((file, i) => {
         uploader.process(`img${i}`, file.path, function(err, image){
-            console.log(`processing image ${i}`);
             if(err) cb(err);
-            else images.push(image);
-        });
+            else {
+               savePhoto(image, form, i); 
+            }
+        });  
     });
     cb(null, images);
 }
    
+function savePhoto(image, form, i) {
+    let newPhoto = new Photo();
+
+    newPhoto.relation = { gallery_id: form.imageGallery[i] };
+    newPhoto.url = {
+        full: image.large,
+        thumb: image.thumbnail
+    };
+    newPhoto.info = {
+        title: form.imageTitle[i],
+        description: form.imageDesc[i]
+    };
+
+    newPhoto.save((err) => { 
+        if(err) throw err;
+    });
+}

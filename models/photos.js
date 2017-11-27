@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
 //photos schema
 const photoSchema = mongoose.Schema({
     relation: {
-        gallery_id: Schema.Types.objectId
+        gallery_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Gallery' }
     },
     url: {
         full: String,
@@ -11,9 +12,7 @@ const photoSchema = mongoose.Schema({
     },
     info: {
         title: String,
-        description: String,
-        project: String,
-        tags: String
+        description: String
     }
 });
 
