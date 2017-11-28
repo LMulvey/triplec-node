@@ -11,8 +11,6 @@ const multer    = multerHandler({dest: `./public/img/gallery/tmp`}).array('image
 const imageProcessor   = require('../lib/processImage');
 const uploader = new imageProcessor();
 
-//const cleaner   = require('../lib/clearTmpFiles');
-
 module.exports = function(passport) {
 
     adminRoutes.get('/', isLoggedIn, (req, res) => {
@@ -31,26 +29,21 @@ module.exports = function(passport) {
     adminRoutes.get('/photos/upload', (req, res) => {
         Gallery.find({}, (err, results) => {
             if(err) throw err;
-
             res.render('admin_photo_upload', {
                 user: req.user,
                 config: config.defaultTemplateVars,
                 galleries: results,
-                message: req.flash('info'),
+                message: req.flash('info')
             });
-
         });
-        //cleaner.removeTmpFiles('./public/img/gallery/tmp');
     });
 
     adminRoutes.post('/photos/upload', multer, (req, res) => {
-        processImageStack(req.files, req.body, (err, images) => {
-            if(err) {
-                req.flash('info', 'Error uploading images.');
-                res.redirect('/admin/photos/upload');
-            } else {
-                req.flash('info', 'Image successfully uploaded.');
-                res.redirect('/admin/photos/upload');
+        processImageStack(req.files, req.body, (err) => {
+            if(err) req.flash('info', 'Error uploading photos.');
+            else {
+                req.flash('info', 'Photos uploaded successfully!')
+                res.redirect('/admin/');
             }
         });
     });
@@ -58,13 +51,16 @@ module.exports = function(passport) {
     adminRoutes.get('/galleries/:url', isLoggedIn, (req, res) => {
         Gallery.findOne({ 'info.url' : req.params.url }, (err, results) => {
             if(err) throw err;
-           
-            res.render('admin_gallery_view', {
-               user: req.user,
-               message: req.flash('info'),
-               config: config.defaultTemplateVars,
-               gallery: results.info 
+            Photo.find({ 'relation.gallery_id' : results._id }, (err, photos) => {
+                res.render('admin_gallery_view', {
+                    user: req.user,
+                    message: req.flash('info'),
+                    config: config.defaultTemplateVars,
+                    gallery: results.info,
+                    photos
+                 });
             });
+            
         });
     });
 
@@ -137,7 +133,7 @@ module.exports = function(passport) {
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) return next();
+    if (req.isAuthenticated()) return next(); 
 
     // if they aren't redirect them to the login 
     req.session.returnTo = `/admin${req.url}`; // Return from where they came!
@@ -145,32 +141,48 @@ function isLoggedIn(req, res, next) {
 }
 
 function processImageStack(files, form, cb) {
-    let images = [];
     files.forEach((file, i) => {
-        uploader.process(`img${i}`, file.path, function(err, image){
+        let formData = parseObject(form, i);
+        let galleryId = formData.imageGallery;
+        let timestamp = new Date().getTime();
+        let imageFileName 
+            = `${formData.imageTitle.toLowerCase().replace(/ /g, "_")}-${galleryId}${timestamp}`;
+        
+        uploader.process(imageFileName, file.path, function(err, image){
             if(err) cb(err);
             else {
-               savePhoto(image, form, i); 
+               savePhoto(image, formData); 
             }
         });  
     });
-    cb(null, images);
+    cb(null);
 }
    
-function savePhoto(image, form, i) {
+function savePhoto(image, form) {
     let newPhoto = new Photo();
 
-    newPhoto.relation = { gallery_id: form.imageGallery[i] };
+    newPhoto.relation = { gallery_id: form.imageGallery };
     newPhoto.url = {
-        full: image.large,
-        thumb: image.thumbnail
+        full: image.large.substr(8),
+        thumb: image.thumbnail.substr(8)
     };
     newPhoto.info = {
-        title: form.imageTitle[i],
-        description: form.imageDesc[i]
+        title: form.imageTitle,
+        description: form.imageDesc
     };
 
     newPhoto.save((err) => { 
         if(err) throw err;
     });
+}
+
+function parseObject(form, i) {
+    if(typeof form.imageTitle == 'object') {
+        form = {
+            imageTitle: form.imageTitle[i],
+            imageDesc: form.imageDesc[i],
+            imageGallery: form.imageGallery[i]
+        }
+    }
+    return form;
 }

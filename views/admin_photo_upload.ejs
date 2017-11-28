@@ -4,16 +4,10 @@
 <div class="container">
     <div class="col-sm-8 col-sm-offset-2">
         <h1>Upload an Image 🖼️</h1>
-
-        <!-- FLASH MESSAGES -->
-        <% if (message.length > 0) { %>
-            <div class="alert alert-warning"><%= message %></div>
-        <% } %>
+            <div class="alert invisible"></div>
         <div class="form-group">
             <form action="upload" 
             enctype="multipart/form-data" class="dropzone" id="dropper" method="post">
-            
-            <input class="form-control" type="file" name="images" multiple />
             </form>
         </div>
         <button id="submitAll" class="invisible form-control btn btn-success" type="submit">
@@ -26,7 +20,7 @@
 <script>
     let galleries = <%- JSON.stringify( galleries ); %>
     function createDropdown(name) {
-        let html = `<select name="galleryDropdown" class="form-control" id="${name}">`;
+        let html = `<select name="imageGallery" class="form-control" id="${name}">`;
             galleries.forEach(gallery => {
             html += `<option value="${gallery._id}">${gallery.info.name}</option>`;
         });
@@ -35,54 +29,58 @@
     
   Dropzone.options.dropper = {
         url: 'upload',
-        maxFilesize: 10, // MB
-        maxFiles: 10,
+        maxFilesize: 25, // MB
+        maxFiles: 30,
         autoProcessQueue: false,
+        acceptedFiles: "image/*",
+        addRemoveLinks: true,
         uploadMultiple: true,
         paramName: function() { return 'images' },
         method: 'post',
         parallelUploads: 10,
-        init: function() {
-                let submitButton = document.querySelector("#submitAll")
+        init: function(file) {
+                let submitButton = document.querySelector("#submitAll");
+                let alert = document.querySelector(".alert");
 
                 submitButton.addEventListener("click", () => {
                     this.processQueue(); // Tell Dropzone to process all queued files.
                 });
 
-                // 'scope' is all files
                 this.on("addedfile", function (file) {
                     var unique_field_id = new Date().getTime();
                     submitButton.style.visibility = 'visible';
 
                     title = file.title == undefined ? "" : file.title;
-                    file._titleLabel = Dropzone.createElement("<label for='title'>Title</label>");
-                    file._titleBox = Dropzone.createElement(`<input id='${file.name + unique_field_id}_title' class="form-control" type='text' name='title' value="${title}">`);
+                    file._titleLabel = Dropzone.createElement("<label for='title'>Title *</label>");
+                    file._titleBox = Dropzone.createElement(`<input id='${file.name + unique_field_id}_title' class="form-control" type='text' name='imageTitle' value="${title}" required>`);
                     file.previewElement.appendChild(file._titleLabel);
                     file.previewElement.appendChild(file._titleBox);
 
                     description = file.description == undefined ? "" : file.description;
                     file._descriptionId = `${file.name + unique_field_id}_desc`;
                     file._descriptionLabel = Dropzone.createElement(`<label for="description">Description</label>`);
-                    file._descriptionBox = Dropzone.createElement(`<input id='${file._descriptionId}' class='form-control' type='text' name='description' value='${description}'>`);
+                    file._descriptionBox = Dropzone.createElement(`<input id='${file._descriptionId}' class='form-control' type='text' name='imageDesc' value='${description}'>`);
                     file.previewElement.appendChild(file._descriptionLabel);
                     file.previewElement.appendChild(file._descriptionBox);
                     
                     dropdownLabel = Dropzone.createElement(`<label for="${name}">Gallery</label>`);
                     dropdown = Dropzone.createElement(createDropdown(`${file.name}${unique_field_id}_gallery`));
                     file.previewElement.appendChild(dropdownLabel);
-                    file.previewElement.appendChild(dropdown);
-                    
+                    file.previewElement.appendChild(dropdown); 
                });
 
-                this.on("sending", function (file, xhr, formData) {
-                    title = file.previewElement.querySelector("input[name='title']");
-                    description = file.previewElement.querySelector("input[name='description']");
-                    dropdown = file.previewElement.querySelector("select[name='galleryDropdown']");
+               this.on("errors", function (file, msg, xhr) {
+                   alert.classList.add('alert-warning');
+                   alert.innerText = `There were some errors: ${msg}${xhr}`;
+                   alert.style.visibility = 'visible';
+               });
 
-                    formData.append("imageTitle", title.value);
-                    formData.append("imageDesc", description.value);
-                    formData.append("imageGallery", dropdown.value);
-                });
+               this.on("queuecomplete", () => {
+                    alert.classList.add('alert-success');
+                    alert.innerText = 'Photos uploaded! Redirecting to dashboard...';
+                    alert.style.visibility = 'visible';
+                    setTimeout(() => window.location.href = "/admin/", 3000);
+               });
         }
     };
 </script>
