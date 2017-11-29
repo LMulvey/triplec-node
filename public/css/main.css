@@ -9,6 +9,30 @@ body {
   color: #748391;
   margin-bottom: 100px; }
 
+
+.photoEdit {
+  position: relative;
+  top: 207px;
+  margin: -150px auto 0 auto;
+  background-color: rgba(36, 73, 88, 0.5);
+  border-radius: 5px;
+  padding: 14px 0;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s linear;
+}
+
+.photoEdit .form-control {
+  width: 75%;
+  margin: 0 auto;
+}
+
+.photoEdit label {
+  padding-left: 12%;
+  color: white;
+  text-shadow: 2px 2px 0px #1d2124;
+  font-size: 1.1em;
+}
+
 .navbar {
   padding-top: 25px;
   margin: 0;

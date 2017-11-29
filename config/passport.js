@@ -1,5 +1,5 @@
-let LocalStrategy   = require('passport-local').Strategy;
-let Admin            = require('../models/admins');
+const LocalStrategy   = require('passport-local').Strategy;
+const Admin            = require('../models/admins');
 
 module.exports = function(passport) {
 
@@ -20,7 +20,6 @@ module.exports = function(passport) {
     },
     function(req, email, password, done) {
         process.nextTick(function() {
-
         // find a Admin whose email is the same as the forms email
         // we are checking to see if the Admin trying to login already exists
         Admin.findOne({ 'local.email' :  email }, function(err, user) {

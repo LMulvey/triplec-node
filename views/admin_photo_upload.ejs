@@ -10,7 +10,7 @@
             enctype="multipart/form-data" class="dropzone" id="dropper" method="post">
             </form>
         </div>
-        <button id="submitAll" class="invisible form-control btn btn-success" type="submit">
+        <button id="submitAll" class="invisible form-control btn btn-success">
             Submit!
         </button>
     </div>
@@ -37,22 +37,39 @@
         uploadMultiple: true,
         paramName: function() { return 'images' },
         method: 'post',
-        parallelUploads: 10,
+        parallelUploads: 30,
         init: function(file) {
                 let submitButton = document.querySelector("#submitAll");
                 let alert = document.querySelector(".alert");
 
-                submitButton.addEventListener("click", () => {
-                    this.processQueue(); // Tell Dropzone to process all queued files.
+                submitButton.addEventListener("click", (e) => {
+                    let inputs = document.querySelectorAll('input[name=imageTitle]');
+                    let foundBlank = false;
+                    inputs.forEach(input => {
+                        if(input.value == '') {
+                            foundBlank = true;
+                            input.style.borderColor = 'red';
+                        }
+                    });
+                    if(foundBlank) {
+                        alert.classList.add('alert-warning');
+                        alert.innerText = `Ensure all titles/descriptions are filled out.`;
+                        alert.style.visibility = 'visible';
+                    } else {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.processQueue(); 
+                    }
                 });
 
                 this.on("addedfile", function (file) {
                     var unique_field_id = new Date().getTime();
                     submitButton.style.visibility = 'visible';
+                   
 
                     title = file.title == undefined ? "" : file.title;
                     file._titleLabel = Dropzone.createElement("<label for='title'>Title *</label>");
-                    file._titleBox = Dropzone.createElement(`<input id='${file.name + unique_field_id}_title' class="form-control" type='text' name='imageTitle' value="${title}" required>`);
+                    file._titleBox = Dropzone.createElement(`<input id='${file.name + unique_field_id}_title' class='form-control' type='text' name='imageTitle' value="${title}" required>`);
                     file.previewElement.appendChild(file._titleLabel);
                     file.previewElement.appendChild(file._titleBox);
 
@@ -76,6 +93,7 @@
                });
 
                this.on("queuecomplete", () => {
+                   if(alert.classList.contains('alert-warning')) alert.classList.remove('alert-warning');
                     alert.classList.add('alert-success');
                     alert.innerText = 'Photos uploaded! Redirecting to dashboard...';
                     alert.style.visibility = 'visible';

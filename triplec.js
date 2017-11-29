@@ -5,6 +5,7 @@ const PORT          = process.env.PORT || 8080;
 const mongoose      = require('mongoose');
 const passport      = require('passport');
 const flash         = require('connect-flash');
+const helmet        = require('helmet');
 
 const morgan        = require('morgan');
 const bodyParser    = require('body-parser');
@@ -18,20 +19,18 @@ require('./config/passport')(passport); //configure the Passport
 mongoose.connect(configDB.url, {useMongoClient: true}); // Connect to the database
 
 app.use(morgan('dev'));
+app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Setup basic serving of files and the view engine
 app.set('view engine', 'ejs');
-//app.set('views', path.join(__dirname, '/views'));
-
-//app.set('strict routing', true);
 app.use(express.static(`${__dirname}/public/`));
 
 // required for passport
 app.use(session({
     secret: 'bibbitybobbityboobity',
-    name: 'triplec-ccc-woodworx',
+    name: 'session',
     resave: true,
     saveUninitialized: true
 }));

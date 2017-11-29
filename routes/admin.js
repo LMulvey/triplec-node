@@ -49,6 +49,10 @@ module.exports = function(passport) {
     });
 
     adminRoutes.get('/galleries/:url', isLoggedIn, (req, res) => {
+        GalleryList = Gallery.find({}, (err, results) => {
+            if(err) throw err;
+            else return results;
+        });
         Gallery.findOne({ 'info.url' : req.params.url }, (err, results) => {
             if(err) throw err;
             Photo.find({ 'relation.gallery_id' : results._id }, (err, photos) => {
@@ -57,6 +61,7 @@ module.exports = function(passport) {
                     message: req.flash('info'),
                     config: config.defaultTemplateVars,
                     gallery: results.info,
+                    GalleryList,
                     photos
                  });
             });
