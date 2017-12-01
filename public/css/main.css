@@ -3,12 +3,96 @@ html {
   min-height: 100%; }
 
 body {
-  font-family: 'Proxima Nova', Helvetica, sans-serif;
+  font-family: 'Open Sans', 'Hevetica', sans-serif;
   background: url("../img/walnutbg-comp.png") no-repeat center center;
   background-size: cover;
+  font-size: 100%;
+  line-height: 1.618;
   color: #748391;
-  margin-bottom: 100px; }
+  margin-bottom: 100px;
+  vertical-align: baseline; }
 
+body, caption, th, td, input, textarea, select, option, legend, fieldset, h1, h2, h3, h4, h5, h6 {
+  font-size-adjust: 0.5;
+}
+
+h1, h2, h3, h4, h5 {
+  color: white;
+  line-height: 1em;
+  margin-bottom: 0.809em;
+  font-family: 'Fjalla One', 'Helvetica', sans-serif;
+}
+
+h1 {
+  font-size: 4.236em;
+  font-weight: 700;
+}
+
+p {
+  margin-bottom: 1.618em;
+  line-height: 1.618;
+}
+
+header {
+  font-family: 'Open Sans', 'Helvetica', sans-serif;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+.container {
+  font-size: 1em;
+  /* equivalent to 16px */
+  line-height: 1.25;
+  /* equivalent to 20px */
+}
+
+.admin-navbar {
+  margin-top: 25px;
+  background-color: rgba(36, 73, 88, 1);
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 15px;
+}
+
+.smaller {
+  font-size: 65%;
+  line-height: 0;
+}
+
+.admin-navbar li a {
+  color: white;
+}
+
+.inline-headers {
+  display: inline-block;
+}
+
+.admin-navbar li a:hover {
+  color: #748391;
+}
+
+.admin-navbar li:not(:last-child) {
+  margin-right: 15px;
+}
+
+.delete-outline {
+  box-shadow: 0px 0px 20px red;
+}
+
+.deletion {
+  font-size: 20px;
+  color: red;
+  text-align: center;
+  text-shadow: 2px 2px 0px black;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.2s;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  margin-top: -55px;
+  top: 55px;
+}
 
 .photoEdit {
   position: relative;
@@ -82,75 +166,64 @@ body {
   background: none; }
 
 section {
-  margin: 25px auto; }
+  margin: 25px auto; 
+  }
 
 .intro {
   padding: 2.5em 0;
   background-color: #1d2124;
   border-radius: 10px; }
 
-.section-heading {
-  font-size: 3.327em;
-  font-weight: bold;
-  line-height: 0.1em;
-  margin-bottom: 0.5em;
-  margin-top: 0.7em;
-  color: white; }
+.intro p {
+  font-size: 1.8em;
+}
 
-.section-paragraph {
-  line-height: 1.4em;
-  font-size: 1.3em; }
+.intro h1 {
+  font-size: 5em;
+}
 
 .carp-logo {
-  margin-top: 2em; }
-
+  text-align: center;
+  margin-top: 30px;
+}
+  
 .largetext-button {
+  font-family: 'Open Sans', sans-serif;
   font-size: 3em;
   font-weight: bolder;
   text-transform: uppercase;
   text-shadow: 2px 3px 1px #1d2124;
   color: white;
-  padding: 0.3em;
   text-align: center;
   background-color: #2d3237;
   transition: 0.5s;
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   -o-transition: 0.5;
-  margin-bottom: 25px; }
+  margin-bottom: 25px; 
+  vertical-align: middle;
+  padding: 25px;
+   }
 
 .other-galleries-button .largetext-button {
   border-radius: 10px; }
 
 .button-bathrooms, .button-kitchens, .button-others {
   text-align: center;
+  background-size: cover;
   height: 350px;
-  padding-top: 3.3em;
+  line-height: 350px;
+  font-size: 5em;
+  padding: 0;
   transition: opacity 0.2s linear,  font-size 0.2s linear, background 0.2s linear;
   -webkit-transition: opacity 0.2s linear,  font-size 0.2s linear, background 0.2s linear;
   -moz-transition: opacity 0.2s linear,  font-size 0.2s linear, background 0.2s linear;
   -o-transition: opacity 0.2s linear,  font-size 0.2s linear, background 0.2s linear; }
 
-.button-bathrooms:hover, .button-kitchens:hover {
+.button-bathrooms:hover, .button-kitchens:hover, .button-others:hover  {
   opacity: 0.6;
   color: #f1f1f1;
-  font-size: 3.1em;
-  padding-top: 3.2em; }
-
-.button-others:hover {
-  opacity: 0.6;
-  color: #f1f1f1;
-  font-size: 3.1em;
-  padding-top: 3.2em;
-  padding-top: 2.6em; }
-
-.button-bathrooms, .button-kitchens {
-  background-size: cover; }
-
-.button-others {
-  background-size: cover;
-  font-size: 3em;
-  padding-top: 2.7em; }
+  font-size: 5.1em;}
 
 .gallery-button {
   padding: 1em 0;
@@ -206,25 +279,25 @@ section {
 footer {
   position: absolute;
   bottom: 0;
+  font-size: 1.3em;
   height: 80px;
-  padding: 1.5em;
+  padding: 1.8em;
   width: 100%;
   background-color: #111416; }
-  footer .fa:hover {
-    color: white; }
-  footer i {
-    padding: 0 0.1em; }
   footer .designer {
     text-align: right;
-    font-size: 1.1em;
+    font-size: 1.2em;
     font-weight: 400;
-    line-height: 1.3em;
+    line-height: 1.2em;
     float: right; }
-  footer .amlm-wordmark {
-    font-family: flood-std, sans-serif;
+  footer .leemulvey-wordmark {
+    font-family: 'Lato', sans-serif;
     font-weight: normal;
-    font-size: 1.4em;
-    color: #e71d36; }
+    font-size: 1.2em;
+    }
+    .leemulvey-wordmark a {
+      color: #e71d36; 
+    }
 
 
     .dropzone, .dropzone * {
@@ -299,3 +372,111 @@ footer {
     display: block;
     text-align: center;
     margin: 0.5em; } }
+
+    @media (min-width: 43.75em) {
+      #page {
+        font-size: 1em;
+        /* equivalent to 16px */
+        line-height: 1.375;
+        /* equivalent to 22px */
+      }
+    }
+    
+    h1 {
+      font-size: 2em;
+      /* 2x body copy size = 32px */
+      line-height: 1.25;
+      /* 45px / 36px */
+    }
+    
+    @media (min-width: 43.75em) {
+      h1 {
+        font-size: 2.5em;
+        /* 2.5x body copy size = 40px */
+        line-height: 1.125;
+      }
+    }
+    
+    @media (min-width: 56.25em) {
+      h1 {
+        font-size: 3em;
+        /* 3x body copy size = 48px */
+        line-height: 1.05;
+        /* keep to a multiple of the 20px line height and something more appropriate for display headings */
+      }
+    }
+    
+    h2 {
+      font-size: 1.625em;
+      /* 1.625x body copy size = 26px */
+      line-height: 1.15384615;
+      /* 30px / 26px */
+    }
+    
+    @media (min-width: 43.75em) {
+      h2 {
+        font-size: 2em;
+        /* 2x body copy size = 32px */
+        line-height: 1.25;
+      }
+    }
+    
+    @media (min-width: 56.25em) {
+      h2 {
+        font-size: 2.25em;
+        /* 2.25x body copy size = 36px */
+        line-height: 1.25;
+      }
+    }
+    
+    h3 {
+      font-size: 1.375em;
+      /* 1.375x body copy size = 22px */
+      line-height: 1.13636364;
+      /* 25px / 22px */
+    }
+    
+    @media (min-width: 43.75em) {
+      h3 {
+        font-size: 1.5em;
+        /* 1.5x body copy size = 24px */
+        line-height: 1.25;
+      }
+    }
+    
+    @media (min-width: 56.25em) {
+      h3 {
+        font-size: 1.75em;
+        /* 1.75x body copy size = 28px */
+        line-height: 1.25;
+      }
+    }
+    
+    h4 {
+      font-size: 1.125em;
+      /* 1.125x body copy size = 18px */
+      line-height: 1.11111111;
+    }
+    
+    @media (min-width: 43.75em) {
+      h4 {
+        line-height: 1.22222222;
+        /* (22px / 18px */
+      }
+    }
+    
+    blockquote {
+      font-size: 1.25em;
+      /* 20px / 16px */
+      line-height: 1.25;
+      /* 25px / 20px */
+    }
+    
+    @media (min-width: 43.75em) {
+      blockquote {
+        font-size: 1.5em;
+        /* 24px / 16px = */
+        line-height: 1.45833333;
+        /* 35px / 24px */
+      }
+    }

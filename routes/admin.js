@@ -11,6 +11,10 @@ const multer    = multerHandler({dest: `./public/img/gallery/tmp`}).array('image
 const imageProcessor   = require('../lib/processImage');
 const uploader = new imageProcessor();
 
+const fs = require('fs');
+
+const mongoose = require('mongoose');
+
 module.exports = function(passport) {
 
     adminRoutes.get('/', isLoggedIn, (req, res) => {
@@ -48,28 +52,25 @@ module.exports = function(passport) {
         });
     });
 
-    adminRoutes.get('/galleries/:url', isLoggedIn, (req, res) => {
-        GalleryList = Gallery.find({}, (err, results) => {
-            if(err) throw err;
-            else return results;
-        });
-        Gallery.findOne({ 'info.url' : req.params.url }, (err, results) => {
-            if(err) throw err;
-            Photo.find({ 'relation.gallery_id' : results._id }, (err, photos) => {
-                res.render('admin_gallery_view', {
-                    user: req.user,
-                    message: req.flash('info'),
-                    config: config.defaultTemplateVars,
-                    gallery: results.info,
-                    GalleryList,
-                    photos
-                 });
+    adminRoutes.get('/galleries/:url', (req, res) => {
+        Gallery.find({}, (err, galleryList) => {
+            Gallery.findOne({ 'info.url' : req.params.url }, (err, results) => {
+                Photo.find({ 'relation.gallery_id' : results._id }, (err, photos) => {
+                    if(err) throw err;
+                    res.render('admin_gallery_view', {
+                        user: req.user,
+                        message: req.flash('info'),
+                        config: config.defaultTemplateVars,
+                        gallery: results,
+                        galleryList,
+                        photos
+                    });
+                });  
             });
-            
         });
     });
 
-    adminRoutes.get('/galleries/create', isLoggedIn, (req, res) => {
+    adminRoutes.get('/gallery/create', isLoggedIn, (req, res) => {
         res.render('admin_galleries_create', { 
             user: req.user, 
             message: req.flash('info'),
@@ -77,7 +78,7 @@ module.exports = function(passport) {
         });
     });
 
-    adminRoutes.post('/galleries/create', (req, res) => {
+    adminRoutes.post('/gallery/create', (req, res) => {
         const { name, description, url } = req.body;
         if(!name || !description) {
             req.flash('info', "Please ensure all fields are filled out.");
@@ -104,6 +105,13 @@ module.exports = function(passport) {
                 }
             }) 
         }
+    });
+
+    adminRoutes.post('/galleries/edit', (req, res) => {
+        processUpdate(req.body, (err) => {
+            req.flash('info', `${req.body.name} gallery updated!`);
+            res.redirect(`/admin/galleries/${req.body.url}`);     
+        });
     });
 
     // Authentication Handlers
@@ -156,28 +164,96 @@ function processImageStack(files, form, cb) {
         uploader.process(imageFileName, file.path, function(err, image){
             if(err) cb(err);
             else {
-               savePhoto(image, formData); 
+               savePhoto(image, formData, imageFileName)
+               .then(console.log('Uploaded photo')); 
             }
         });  
     });
     cb(null);
 }
-   
-function savePhoto(image, form) {
-    let newPhoto = new Photo();
 
-    newPhoto.relation = { gallery_id: form.imageGallery };
-    newPhoto.url = {
-        full: image.large.substr(8),
-        thumb: image.thumbnail.substr(8)
-    };
-    newPhoto.info = {
-        title: form.imageTitle,
-        description: form.imageDesc
+function processUpdate(form, cb) {
+    let imageData = {
+        imageTitle: form.imageTitle,
+        imageDesc: form.imageDesc,
+        imageGallery: form.imageGallery,
+        deleteImage: form.deleteImage,
+        imageId: form.imageId
     };
 
-    newPhoto.save((err) => { 
+    Gallery.findById(form.galleryId, (err, doc) => {
         if(err) throw err;
+
+        doc.info.name = form.name || doc.info.name;
+        doc.info.description = form.description || doc.info.description;
+        doc.info.url = form.url || doc.info.url;
+
+        doc.save((err, item) => {
+            if(err) throw err;
+        });
+    });
+
+    if(typeof imageData.imageId === 'object') {
+        imageData.imageId.forEach((image, i) => {
+            updatePhoto(image, {
+                imageTitle: form.imageTitle[i],
+                imageDesc: form.imageDesc[i],
+                imageGallery: form.imageGallery[i],
+                deleteImage: form.deleteImage[i],
+                imageId: form.imageId[i]});
+        });
+    } else {
+        updatePhoto(imageData.imageId, imageData)
+    }
+
+    cb(null);   
+}
+
+function updatePhoto(imageId, imageData) {
+    if(imageData.deleteImage == 'false'){
+        Photo.findById(imageId, (err, doc) => {
+            if(err) throw err;
+            
+                doc.info.title = imageData.imageTitle || doc.info.title;
+                doc.info.description = imageData.imageDesc || doc.info.description;
+                doc.relation.gallery_id = imageData.imageGallery || doc.relation.gallery_id;
+    
+                doc.save((err, item) => {
+                    if(err) throw err;
+                }); 
+        
+        });
+    } else {
+        Photo.findByIdAndRemove(imageId, (err, doc) => {
+            if(err) throw err;
+            fs.unlink(`./public${doc.url.full}`, err => {
+                if(err) throw err;
+            });
+            fs.unlink(`./public${doc.url.thumb}`, err => {
+                if(err) throw err;
+            });
+        });
+    }
+}
+   
+function savePhoto(image, form, imageName) {
+    return new Promise((resolve, reject) => {
+        let newPhoto = new Photo();
+        
+        newPhoto.relation = { gallery_id: form.imageGallery };
+        newPhoto.url = {
+            full: `/img/gallery/${imageName}-large.jpg`,
+            thumb: `/img/gallery/${imageName}-thumbnail.jpg`
+        };
+    
+        newPhoto.info = {
+            title: form.imageTitle,
+            description: form.imageDesc
+        };
+    
+        newPhoto.save((err) => { 
+            if(err) reject(err);
+        }).then(resolve());
     });
 }
 

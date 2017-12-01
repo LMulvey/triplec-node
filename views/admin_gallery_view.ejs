@@ -1,9 +1,11 @@
 <% include partials/_header %>
+<% include partials/_admin_navbar %>
+
 <div class="container">
         
     <div class="col-sm-10 col-sm-offset-1">
     
-        <h1><span class="fa fa-file-photo-o"></span> Edit <%=gallery.name%> Gallery</h1>
+        <h1><span class="fa fa-file-photo-o"></span> Edit <%=gallery.info.name%> Gallery</h1>
 
         <!-- FLASH MESSAGES -->
         <% if (message.length > 0) { %>
@@ -11,58 +13,68 @@
         <% } %>
         
         <form action="edit" method="post" >
-                <div class="col-md-2 form-group">
-                  <label for="name">Gallery Name</label>
-                  <input id="name" type="text" class="form-control" value="<%=gallery.name%>" name="name" required />
-                </div>
-                <div class="col-md-5 form-group">
-                  <label for="desc">Gallery Description</label>
-                  <input id="desc" type="text" class="form-control" value="<%=gallery.description%>" name="description" required />
-                </div>
-                <div class="col-md-2 form-group">
-                  <label for="url">Gallery URL</label>
-                  <input id="url" type="text" class="form-control" value="<%=gallery.url%>" name="url" readonly />
-                </div>
-                <div class="col-md-3 form-group align-center">
-                        <label for="submit">&nbsp;</label>
-                        <button type="submit" class="btn btn-warning form-control">Save Changes! 📝 </button>
-                </div>
+        <input type="hidden" name="galleryId" value="<%=gallery._id%>">
+        <div class="col-md-2 form-group">
+            <label for="name">Gallery Name</label>
+            <input id="name" type="text" class="form-control" value="<%=gallery.info.name%>" name="name" required />
+        </div>
+        <div class="col-md-5 form-group">
+            <label for="desc">Gallery Description</label>
+            <input id="desc" type="text" class="form-control" value="<%=gallery.info.description%>" name="description" required />
+        </div>
+        <div class="col-md-2 form-group">
+            <label for="url">Gallery URL</label>
+            <input id="url" type="text" class="form-control" value="<%=gallery.info.url%>" name="url" readonly />
+        </div>
+        <div class="col-md-3 form-group align-center">
+                <label for="submit">&nbsp;</label>
+                <button type="submit" class="btn btn-warning form-control">Save Changes! 📝 </button>
+        </div>
              
-
-    <div class="chocolat-parent" data-chocolat-title="<%=gallery.description%>">
-        <% photos.forEach((photo) => { %>
-            <div class="col-sm-4">
-                    <div id="form-<%=photo._id%>" class="photoEdit invisible">
-                            <label for='title'>Title *</label>
-                            <input id='title-<%=photo._id%>' class='form-control' type='text' name='imageTitle' value="<%=photo.info.title%>" required>
-    
-                            <label for="description">Description</label>
-                            <input id='description-<%=photo._id%>' class='form-control' type='text' name='imageDesc' value='<%=photo.info.description%>'>
-    
-                            <label for="gallery">Gallery</label>
-                            <select name="imageGallery" class="form-control" id="gallery-<%=photo._id%>"></select>
+    <% photos.forEach((photo) => { %>
+        <div id="container-<%=photo._id%>" class="col-sm-4">
+                <div id="deletion-<%=photo._id%>" class="deletion invisible">
+                        Marked for deletion.
                     </div>
-                <a class="chocolat-image" href="<%=photo.url.full%>" title="<%=photo.info.title%> - <%=photo.info.description%> 1">
-                    <img class="img-responsive thumb" src="<%=photo.url.thumb%>" alt="<%=photo.info.title%>">
-                </a>
-                <div class="col-sm 4">
-                    <button id="editButton" data-imageid="<%=photo._id%>" name="<%=photo._id%>-edit" class="btn btn-warning">
-                        <i class="fa fa-pencil-square"></i> Edit
-                    </button> 
-                    <button id="cancelEditButton" data-imageid="<%=photo._id%>" name="cancelEdit-<%=photo._id%>" class="btn btn-warning hidden">
-                            ✗ Cancel Edits
-                        </button> 
-                    <button id="deleteButton" data-imageid="<%=photo._id%>" class="btn btn-danger">
-                        <i class="fa fa-trash"></i> Remove
-                    </button> 
+                <div id="form-<%=photo._id%>" class="photoEdit invisible">
+
+                    <label for='title'>Title *</label>
+                    <input id='title-<%=photo._id%>' class='form-control' type='text' name='imageTitle' value="<%=photo.info.title%>" required>
+
+                    <label for="description">Description</label>
+                    <input id='description-<%=photo._id%>' class='form-control' type='text' name='imageDesc' value='<%=photo.info.description%>'>
+
+                    <label for="gallery">Gallery</label>
+                    <select name="imageGallery" class="form-control" id="gallery-<%=photo._id%>">
+                    <% galleryList.forEach((gallery) => { %>
+                        <option <% if(gallery._id.toString() == photo.relation.gallery_id.toString()) {%> selected <% } %> value="<%=gallery._id%>">
+                            <%=gallery.info.name%>
+                        </option>
+                    <% }) %>
+                    </select>
+                    <input type="hidden" name="imageId" value="<%=photo._id%>">
+                    <input type="hidden" id="delete-<%=photo._id%>" name="deleteImage" value="false">
                 </div>
+
+                <img id="image-<%=photo._id%>" class="img-responsive thumb" src="<%=photo.url.thumb%>" alt="<%=photo.info.title%>">
+            <div class="col-sm 4">
+                <button id="editButton" data-imageid="<%=photo._id%>" name="<%=photo._id%>-edit" class="btn btn-warning">
+                    <i class="fa fa-pencil-square"></i> Edit
+                </button> 
+                <button id="cancelEditButton" data-imageid="<%=photo._id%>" name="cancelEdit-<%=photo._id%>" class="btn btn-warning hidden">
+                        ✗ Cancel Edits
+                    </button> 
+                <button id="deleteButton" data-imageid="<%=photo._id%>" class="btn btn-danger pull-right">
+                    <i class="fa fa-trash"></i>
+                </button> 
             </div>
-        <% }); %>
-    </div>
+        </div>
+    <% }); %>
 </form>
 
 </div>
 </div>
+
 
 <script>
     const nameField = document.querySelector('input[name=name]');
@@ -70,36 +82,38 @@
     const urlField = document.querySelector('input[name=url]');
     const editButtons = document.querySelectorAll('#editButton');
     const cancelEditButtons = document.querySelectorAll('#cancelEditButton');
+    const deleteButtons = document.querySelectorAll('#deleteButton');
+    
     cancelEditButtons.forEach(btn => { btn.style.display = 'none'; btn.classList.remove('hidden');});
     let holdValues = {};
-
+    
     function urlTypeAlong() {
         let newValue = nameField.value.toLowerCase().replace(/ /g, "_");
         urlField.value = newValue;
     }
-
+    
     function toggleEditForm(e) {
         e.preventDefault();
         let imageId = e.currentTarget.dataset.imageid;
-
+        
         let title = document.querySelector(`#title-${imageId}`).value;
         let description = document.querySelector(`#description-${imageId}`).value;
         let gallery = document.querySelector(`#gallery-${imageId}`).value;
         let cancelEditButton = document.querySelector(`button[name=cancelEdit-${imageId}]`);
-
+        
         holdValues[imageId] = {
             button: e.currentTarget,
             title,
             description,
             gallery 
         }
-
+        
         e.currentTarget.style.display = 'none';
         cancelEditButton.style.display = 'inline-block';
         document.querySelector(`#form-${imageId}`).style.visibility = 'visible';
         document.querySelector(`#form-${imageId}`).style.opacity = '1';
     }
-
+    
     function clearEdits(e) {
         e.preventDefault();
         let imageId = e.currentTarget.dataset.imageid;
@@ -107,19 +121,41 @@
         document.querySelector(`#title-${imageId}`).value = holdValues[imageId].title;
         document.querySelector(`#description-${imageId}`).value = holdValues[imageId].description;
         document.querySelector(`#gallery-${imageId}`).value = holdValues[imageId].gallery;
-
+        
         holdValues[imageId].button.style.display = 'inline-block';
         e.currentTarget.style.display = 'none';
         document.querySelector(`#form-${imageId}`).style.visibility = 'hidden';
         document.querySelector(`#form-${imageId}`).style.opacity = '0';
     }
-
+    
+    function deletePhoto(e) {
+        e.preventDefault();
+        let imageId = e.currentTarget.dataset.imageid;
+        let deleteFlag = document.querySelector(`#delete-${imageId}`);
+        
+        if(deleteFlag.value == 'false') {
+            e.currentTarget.innerHTML = "<i class='fa fa-check-circle-o'></i> Don't Delete!";
+            
+            document.querySelector(`#deletion-${imageId}`).style.visibility = 'visible';
+            document.querySelector(`#deletion-${imageId}`).style.opacity = '1';
+            document.querySelector(`#image-${imageId}`).classList.add('delete-outline');
+            deleteFlag.value = 'true';
+        } else {
+            e.currentTarget.innerHTML = "<i class='fa fa-trash'></i>";
+            
+            document.querySelector(`#deletion-${imageId}`).style.visibility = 'hidden';
+            document.querySelector(`#deletion-${imageId}`).style.opacity = '0';
+            document.querySelector(`#image-${imageId}`).classList.remove('delete-outline');
+            deleteFlag.value = 'false';
+        }
+        
+    }
+    
     nameField.addEventListener('keydown', urlTypeAlong);
     nameField.addEventListener('keyup', urlTypeAlong);
     editButtons.forEach(button => button.addEventListener('click', toggleEditForm));
     cancelEditButtons.forEach(button => button.addEventListener('click', clearEdits));
-
-
-
-</script>
+    deleteButtons.forEach(button => button.addEventListener('click', deletePhoto));
+    
+    </script>
 <% include partials/_footer %>

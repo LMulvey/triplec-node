@@ -1,9 +1,17 @@
 <% include partials/_header %>
-
+<% include partials/_admin_navbar %>
 
 <div class="container">
-    <div class="col-sm-8 col-sm-offset-2">
-        <h1>Upload an Image 🖼️</h1>
+    <div class="col-sm-10 col-sm-offset-1">
+        <h1 class="inline-headers">Upload an Image</h1>
+        <div class="btn-group pull-right">
+            <% galleries.forEach(gallery => { %>
+                <button name="gallerySetAll" data-gallery="<%=gallery._id%>" class="btn btn-small btn-default">
+                    <%=gallery.info.name%>
+                </button>
+                <% }); %>
+                <p>Change all Gallery Settings</p>
+        </div>
             <div class="alert invisible"></div>
         <div class="form-group">
             <form action="upload" 
@@ -16,9 +24,12 @@
     </div>
 </div>
 
+<% include partials/_footer %>
 <script src="/js/dropzone.js"></script>
 <script>
     let galleries = <%- JSON.stringify( galleries ); %>
+    
+
     function createDropdown(name) {
         let html = `<select name="imageGallery" class="form-control" id="${name}">`;
             galleries.forEach(gallery => {
@@ -41,7 +52,14 @@
         init: function(file) {
                 let submitButton = document.querySelector("#submitAll");
                 let alert = document.querySelector(".alert");
+                let gallerySetAllBtns = document.querySelectorAll('button[name="gallerySetAll"]');
 
+                gallerySetAllBtns.forEach(button => button.addEventListener('click', (e) => {
+                    let value = e.currentTarget.dataset.gallery;
+                    $('select[name="imageGallery"]').val(value).change();
+                }));   
+                
+                
                 submitButton.addEventListener("click", (e) => {
                     let inputs = document.querySelectorAll('input[name=imageTitle]');
                     let foundBlank = false;
@@ -66,7 +84,6 @@
                     var unique_field_id = new Date().getTime();
                     submitButton.style.visibility = 'visible';
                    
-
                     title = file.title == undefined ? "" : file.title;
                     file._titleLabel = Dropzone.createElement("<label for='title'>Title *</label>");
                     file._titleBox = Dropzone.createElement(`<input id='${file.name + unique_field_id}_title' class='form-control' type='text' name='imageTitle' value="${title}" required>`);
@@ -102,4 +119,4 @@
         }
     };
 </script>
-<% include partials/_footer %>
+

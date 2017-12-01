@@ -1,0 +1,43 @@
+<% include partials/_header %>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="display-3"><strong><%=gallery.info.name%></strong> Gallery</h1>
+            <p class="lead"><%=gallery.info.description%></p>
+            <hr />
+        </div>
+        <div class="chocolat-parent" data-chocolat-title="<%=gallery.info.description%>">
+            <% photos.forEach((photo) => { %>
+                <div class="col-sm-4">
+                    <a class="chocolat-image" href="<%=photo.url.full%>" 
+                        title="<%=photo.info.title%> - <%=photo.info.description%>">
+                        <img class="img-responsive thumb" src="<%=photo.url.thumb%>" alt="">
+                    </a>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</div>
+
+ <!-- other Gallery Links -->
+ <div class="container other-galleries-button">
+    <div class="row">
+        <div class="col-sm-12 other-galleries">
+            <h1><strong>Other</strong> Galleries</h1>
+        </div>
+    </div>
+    <div class="row col-sm-10 col-sm-offset-1">
+        <% galleryList.forEach(thisGallery => {
+            if(gallery.info.url != thisGallery.info.url) { %>
+        <a href="/gallery/<%=thisGallery.info.url%>"><div class="col-sm-4 col-sm-offset-1 largetext-button">
+                <span><%=thisGallery.info.name%></span>
+        </div></a>
+        <%  } }); %>
+
+    </div>
+</div>
+<!-- /.other Gallery Links -->
+
+<% include partials/_footer %>

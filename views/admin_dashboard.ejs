@@ -1,29 +1,28 @@
 <% include partials/_header %>
+<% include partials/_admin_navbar %>
 <div class="container">
         
-        <div class="col-sm-6 col-sm-offset-3">
+        <div class="col-sm-10 col-sm-offset-1">
         
             <h1><span class="fa fa-hand-peace-o"></span> Welcome, <%= user.local.firstName %>!</h1>
             <p>Click on a gallery below to see the photos, edit them, 
                 or click the <strong>upload</strong> button to add photos.
                 </p>
             <hr>
-            <a href="/admin/photos/upload">Upload Photos</a> | 
-            <a href="/admin/galleries/create">Create Gallery</a>
-            <br /><br />
             
             <% if(galleries.length === 0) { %>
                 <strong>No active galleries.</strong>
             <% } %>
             
+            <div class="other-galleries-button">
+            <h1>Available Galleries</h1>
             <% galleries.forEach((gallery) => { %>
-                <strong><a href="/admin/galleries/<%=gallery.info.url%>"><%=gallery.info.name%></a></strong>
-                 - <em><%=gallery.info.description%></em><br/>
+            <a href="/admin/galleries/<%=gallery.info.url%>">
+                <div class="col-sm-3 col-sm-offset-1 largetext-button">
+                    <span class="smaller"><%=gallery.info.name%></span>
+            </div></a>
             <% }) %>
-    
-            <hr>
-            <a href="/admin/logout"<i class="fa fa-logout" />Logout</a>
-        
+        </div>
         </div>
         
         </div>
