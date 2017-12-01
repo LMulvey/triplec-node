@@ -8,10 +8,8 @@ const Photo     = require('../models/photos');
 const multerHandler    = require('multer');
 const multer    = multerHandler({dest: `./public/img/gallery/tmp`}).array('images');
 
-const imageProcessor   = require('../lib/processImage');
-const uploader = new imageProcessor();
-
 const fs = require('fs');
+const sharp = require('sharp');
 
 const mongoose = require('mongoose');
 
@@ -154,6 +152,9 @@ function isLoggedIn(req, res, next) {
 }
 
 function processImageStack(files, form, cb) {
+    let fullSizes = [];
+    let thumbnails = [];
+
     files.forEach((file, i) => {
         let formData = parseObject(form, i);
         let galleryId = formData.imageGallery;
@@ -161,15 +162,21 @@ function processImageStack(files, form, cb) {
         let imageFileName 
             = `${formData.imageTitle.toLowerCase().replace(/ /g, "_")}-${galleryId}${timestamp}`;
         
-        uploader.process(imageFileName, file.path, function(err, image){
-            if(err) cb(err);
-            else {
-               savePhoto(image, formData, imageFileName)
-               .then(console.log('Uploaded photo')); 
-            }
-        });  
+        fullSizes.push(sharp(file.path)
+                         .resize(800, 600)
+                         .max()
+                         .on('error', err => { throw err })
+                         .toFile(`./public/img/gallery/${imageFileName}-full.jpg`));
+        thumbnails.push(sharp(file.path)
+                        .resize(500, 375)
+                        .crop(sharp.strategy.attention)
+                        .on('error', err => { throw err })
+                        .toFile(`./public/img/gallery/${imageFileName}-thumb.jpg`)
+                        .then(savePhoto(formData, imageFileName)));
     });
-    cb(null);
+    Promise.all([fullSizes, thumbnails])
+    .then(files.forEach(file => fs.unlink(file.path)))
+    .then(cb(null));
 }
 
 function processUpdate(form, cb) {
@@ -236,14 +243,14 @@ function updatePhoto(imageId, imageData) {
     }
 }
    
-function savePhoto(image, form, imageName) {
+function savePhoto(form, imageName) {
     return new Promise((resolve, reject) => {
         let newPhoto = new Photo();
         
         newPhoto.relation = { gallery_id: form.imageGallery };
         newPhoto.url = {
-            full: `/img/gallery/${imageName}-large.jpg`,
-            thumb: `/img/gallery/${imageName}-thumbnail.jpg`
+            full: `/img/gallery/${imageName}-full.jpg`,
+            thumb: `/img/gallery/${imageName}-thumb.jpg`
         };
     
         newPhoto.info = {
