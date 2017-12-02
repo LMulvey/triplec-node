@@ -28,7 +28,7 @@ module.exports = function(passport) {
         });
     });
 
-    adminRoutes.get('/photos/upload', (req, res) => {
+    adminRoutes.get('/photos/upload', isLoggedIn, (req, res) => {
         Gallery.find({}, (err, results) => {
             if(err) throw err;
             res.render('admin_photo_upload', {
@@ -40,7 +40,7 @@ module.exports = function(passport) {
         });
     });
 
-    adminRoutes.post('/photos/upload', multer, (req, res) => {
+    adminRoutes.post('/photos/upload',isLoggedIn, multer, (req, res) => {
         processImageStack(req.files, req.body, (err) => {
             if(err) req.flash('info', 'Error uploading photos.');
             else {
@@ -50,7 +50,7 @@ module.exports = function(passport) {
         });
     });
 
-    adminRoutes.get('/galleries/:url', (req, res) => {
+    adminRoutes.get('/galleries/:url', isLoggedIn, (req, res) => {
         Gallery.find({}, (err, galleryList) => {
             Gallery.findOne({ 'info.url' : req.params.url }, (err, results) => {
                 Photo.find({ 'relation.gallery_id' : results._id }, (err, photos) => {
@@ -76,7 +76,7 @@ module.exports = function(passport) {
         });
     });
 
-    adminRoutes.post('/gallery/create', (req, res) => {
+    adminRoutes.post('/gallery/create', isLoggedIn, (req, res) => {
         const { name, description, url } = req.body;
         if(!name || !description) {
             req.flash('info', "Please ensure all fields are filled out.");
@@ -105,7 +105,7 @@ module.exports = function(passport) {
         }
     });
 
-    adminRoutes.post('/galleries/edit', (req, res) => {
+    adminRoutes.post('/galleries/edit', isLoggedIn, (req, res) => {
         processUpdate(req.body, (err) => {
             req.flash('info', `${req.body.name} gallery updated!`);
             res.redirect(`/admin/galleries/${req.body.url}`);     
@@ -128,7 +128,7 @@ module.exports = function(passport) {
         res.redirect('/admin');
     });
 
-    adminRoutes.get('/createadmin', (req, res) => {
+    adminRoutes.get('/createadmin', isLoggedIn, (req, res) => {
         // render the page and pass in any flash data if it exists
         res.render('admin_create', { message: req.flash('createMessage'), config: config.defaultTemplateVars });
     });

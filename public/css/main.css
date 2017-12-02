@@ -19,7 +19,7 @@ body, caption, th, td, input, textarea, select, option, legend, fieldset, h1, h2
 h1, h2, h3, h4, h5 {
   color: white;
   line-height: 1em;
-  margin-bottom: 0.809em;
+  margin-bottom: 0.609em;
   font-family: 'Fjalla One', 'Helvetica', sans-serif;
 }
 
@@ -40,17 +40,15 @@ header {
 }
 
 .container {
-  font-size: 1em;
-  /* equivalent to 16px */
+  font-size: 1.3em;
   line-height: 1.25;
-  /* equivalent to 20px */
 }
 
 .admin-navbar {
   margin-top: 25px;
   background-color: rgba(36, 73, 88, 1);
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 1.6em;
   padding: 15px;
 }
 
@@ -122,7 +120,8 @@ header {
   margin: 0;
   border: none;
   text-align: center;
-  vertical-align: middle; }
+  vertical-align: middle;
+  font-size: 0.8em; }
 
 .tagline {
   font-size: 1.2em;
@@ -166,25 +165,19 @@ header {
   background: none; }
 
 section {
-  margin: 25px auto; 
-  }
+  margin: 0 auto; }
 
 .intro {
   padding: 2.5em 0;
-  background-color: #1d2124;
-  border-radius: 10px; }
+  text-align: center;}
 
 .intro p {
-  font-size: 1.8em;
+  font-size: 1.5em;
 }
 
 .intro h1 {
-  font-size: 5em;
-}
-
-.carp-logo {
-  text-align: center;
-  margin-top: 30px;
+  font-size: 4.7em;
+  text-shadow: 2px 2px 1px #1d2124;
 }
   
 .largetext-button {
@@ -192,7 +185,7 @@ section {
   font-size: 3em;
   font-weight: bolder;
   text-transform: uppercase;
-  text-shadow: 2px 3px 1px #1d2124;
+  text-shadow: 4px 4px 1px #1d2124;
   color: white;
   text-align: center;
   background-color: #2d3237;
@@ -213,7 +206,8 @@ section {
   background-size: cover;
   height: 350px;
   line-height: 350px;
-  font-size: 5em;
+  font-size: 4em;
+  font-weight: 800;
   padding: 0;
   transition: opacity 0.2s linear,  font-size 0.2s linear, background 0.2s linear;
   -webkit-transition: opacity 0.2s linear,  font-size 0.2s linear, background 0.2s linear;
@@ -223,7 +217,7 @@ section {
 .button-bathrooms:hover, .button-kitchens:hover, .button-others:hover  {
   opacity: 0.6;
   color: #f1f1f1;
-  font-size: 5.1em;}
+  font-size: 4.1em;}
 
 .gallery-button {
   padding: 1em 0;
@@ -279,21 +273,21 @@ section {
 footer {
   position: absolute;
   bottom: 0;
-  font-size: 1.3em;
+  font-size: 1.2em;
   height: 80px;
   padding: 1.8em;
   width: 100%;
   background-color: #111416; }
   footer .designer {
     text-align: right;
-    font-size: 1.2em;
+    font-size: 1em;
     font-weight: 400;
     line-height: 1.2em;
     float: right; }
   footer .leemulvey-wordmark {
     font-family: 'Lato', sans-serif;
     font-weight: normal;
-    font-size: 1.2em;
+    font-size: 1em;
     }
     .leemulvey-wordmark a {
       color: #e71d36; 
