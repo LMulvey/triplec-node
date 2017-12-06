@@ -230,7 +230,7 @@ function updatePhoto(imageId, imageData) {
                 }); 
         
         });
-    } else {
+    } else if(imageData.deleteImage == 'true') {
         Photo.findByIdAndRemove(imageId, (err, doc) => {
             if(err) throw err;
             fs.unlink(`./public${doc.url.full}`, err => {

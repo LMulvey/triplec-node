@@ -16,7 +16,7 @@ const configDB      = require('./config/database');
 const dotenv        = require('dotenv').config();
 require('./config/passport')(passport); //configure the Passport
 
-mongoose.connect(configDB.url_production, {useMongoClient: true}); // Connect to the database
+mongoose.connect(configDB.url, {useMongoClient: true}); // Connect to the database
 
 //app.use(morgan('dev'));
 app.use(helmet());

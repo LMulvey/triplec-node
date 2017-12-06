@@ -12,15 +12,19 @@ galleryRoutes.get('/', (req, res) => {
 galleryRoutes.get('/:url', (req, res) => {
     Gallery.find({}, (err, galleryList) => {
         Gallery.findOne({ 'info.url' : req.params.url }, (err, results) => {
-            Photo.find({ 'relation.gallery_id' : results._id }, (err, photos) => {
-                if(err) throw err;
-                res.render('gallery_view', {
-                    config: config.defaultTemplateVars,
-                    gallery: results,
-                    galleryList,
-                    photos
-                });
-            });  
+            if(results) {
+                Photo.find({ 'relation.gallery_id' : results._id }, (err, photos) => {
+                    if(err) throw err;
+                    res.render('gallery_view', {
+                        config: config.defaultTemplateVars,
+                        gallery: results,
+                        galleryList,
+                        photos
+                    });
+                });  
+            } else {
+                res.redirect('/');
+            }
         });
     });
 });

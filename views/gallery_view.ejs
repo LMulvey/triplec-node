@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-            <h1 class="display-3"><strong><%=gallery.info.name%></strong> Gallery</h1>
+            <h1 class="display-3"><strong><%=gallery.info.name%></strong></h1>
             <p class="lead"><%=gallery.info.description%></p>
             <hr />
         </div>
@@ -31,7 +31,12 @@
     <div class="row col-sm-10 col-sm-offset-1">
         <% galleryList.forEach(thisGallery => {
             if(gallery.info.url != thisGallery.info.url) { %>
-        <a href="/gallery/<%=thisGallery.info.url%>"><div class="col-sm-4 col-sm-offset-1 largetext-button">
+        <a href="/gallery/<%=thisGallery.info.url%>">
+            <% if(thisGallery.info.name.length > 9) { %>
+            <div class="col-sm-6 col-sm-offset-1 largetext-button">
+            <% } else { %>
+            <div class="col-sm-4 col-sm-offset-1 largetext-button">
+            <% } %>
                 <span><%=thisGallery.info.name%></span>
         </div></a>
         <%  } }); %>
