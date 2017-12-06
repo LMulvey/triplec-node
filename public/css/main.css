@@ -193,12 +193,15 @@ section {
   -moz-transition: 0.5s;
   -o-transition: 0.5;
   margin-bottom: 25px; 
-  vertical-align: middle;
-  padding: 25px;
-   }
+  padding: 25px; }
 
 .other-galleries-button .largetext-button {
   border-radius: 10px; }
+
+.button-others.reduced-line-height {
+  line-height: 75px;
+  padding-top: 100px;
+}
 
 .button-bathrooms, .button-kitchens, .button-others {
   text-align: center;
