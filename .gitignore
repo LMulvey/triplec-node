@@ -4,3 +4,4 @@ letsencrypt
 gulpfile.js
 build
 .env
+seeds

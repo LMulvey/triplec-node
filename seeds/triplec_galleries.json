@@ -1,3 +1,0 @@
-{"_id":{"$oid":"5a123c09b74a27294a90e8a6"},"info":{"name":"Kitchens","description":"Kitchens crafted from scratch by Marc.","url":"kitchens"},"__v":0}
-{"_id":{"$oid":"5a123c61b74a27294a90e8a7"},"info":{"name":"Bathrooms","description":"Bathrooms crafted from scratch by Marc.","url":"bathrooms"},"__v":0}
-{"_id":{"$oid":"5a123c69b74a27294a90e8a8"},"info":{"name":"Others","description":"Other projects crafted from scratch by Marc.","url":"others"},"__v":0}
