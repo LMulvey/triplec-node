@@ -1,16 +1,12 @@
 const express   = require('express');
 const adminRoutes = express.Router();
 const config    = require('../config/app');
-
 const Gallery   = require('../models/galleries');
 const Photo     = require('../models/photos');
-
 const multerHandler    = require('multer');
 const multer    = multerHandler({dest: `./public/img/gallery/tmp`}).array('images');
-
 const fs = require('fs');
 const sharp = require('sharp');
-
 const mongoose = require('mongoose');
 
 module.exports = function(passport) {
@@ -138,6 +134,10 @@ module.exports = function(passport) {
             failureRedirect : '/admin/createadmin', // redirect back to the signup page if there is an error
             failureFlash : true // allow flash messages
         }));
+
+    adminRoutes.use(function (req, res, next) {
+        res.redirect('/admin');
+    });
 
     return adminRoutes;
 };
