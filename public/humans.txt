@@ -1,0 +1,20 @@
+/* DEVELOPMENT TEAM */
+Designed & Developed: Lee Mulvey
+Site: http://www.leemulvey.com
+Twitter: http://www.twitter.com/leemulvey
+Github: http://www.github.com/LMulvey 
+Location: Calgary, Canada
+
+/* THANKS */
+My wife: Alora (moral support, taking the baby so I can work, and other great wife things)
+Coding support: April M. & Sam M.
+
+/* SITE */
+Last update: 2017/12/06
+Standards: HTML5, CSS3, ES6, Node.js, MongoDB
+Components: Dropzone.js, Choclat.js, Sharp, Mongoose, Passport.js, Multer, Express, 
+and just a touch of jQuery.
+Software: VSCode, MongoDB Compass for remote interfacing with databases, Photoshop, 
+and Illustrator
+Hardware: An aging MacBook Pro (mid-2010) dying a slow but dignified death, and a
+custom-built Windows 10 PC for Adobe software (runs really bad on my MBP)

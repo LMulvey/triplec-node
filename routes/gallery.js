@@ -15,6 +15,9 @@ galleryRoutes.get('/:url', (req, res) => {
             if(results) {
                 Photo.find({ 'relation.gallery_id' : results._id }, (err, photos) => {
                     if(err) throw err;
+                    config.defaultTemplateVars.pageTitle = 
+                    `${results.info.name} - ${results.info.description} | Triple C Woodworx`;
+                    
                     res.render('gallery_view', {
                         config: config.defaultTemplateVars,
                         gallery: results,

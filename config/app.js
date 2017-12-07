@@ -1,6 +1,7 @@
 const config = {
     defaultTemplateVars: {
-        isHome: false
+        isHome: false,
+        pageTitle: 'Triple C Woodworx | Custom Furniture by Marc Bünder'
     }
 };
 

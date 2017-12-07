@@ -14,7 +14,7 @@ module.exports = function(passport) {
     adminRoutes.get('/', isLoggedIn, (req, res) => {
         Gallery.find({}, (err, results) => {
             if(err) throw err;
-
+            config.defaultTemplateVars.pageTitle = 'Admin Panel | Triple C Woodworx';
             res.render('admin_dashboard', { 
                 user: req.user,
                 config: config.defaultTemplateVars,
