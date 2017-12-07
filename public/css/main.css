@@ -4,7 +4,7 @@ html {
 
 body {
   font-family: 'Open Sans', 'Hevetica', sans-serif;
-  background: url("../img/walnutbg-comp.png") no-repeat center center;
+  background: url("../img/walnutbg-comp.png") no-repeat center center fixed;
   background-size: cover;
   font-size: 100%;
   line-height: 1.618;
